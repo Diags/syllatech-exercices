@@ -1,0 +1,7 @@
+// Un « e » manquant a `postCreateCommand`. La commande ne s'executera
+// jamais, et rien dans le nom ne saute aux yeux.
+{
+  "name": "Une lettre en moins",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "postCreatCommand": "mvn -B flyway:migrate"
+}

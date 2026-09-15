@@ -1,0 +1,63 @@
+# L'orchestrateur et ses deux specialistes.
+#
+# `type: Agent` transforme un agent en outil d'un autre : toute
+# l'orchestration multi-agents se declare en YAML, sans une ligne de code.
+# Le chapitre 4 compte ce que cela coute en appels de modele.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: agent-etat
+  namespace: kagent
+spec:
+  type: Declarative
+  description: Specialiste de l'etat des pods
+  declarative:
+    systemMessage: Tu rends compte de l'etat des pods, rien d'autre.
+    modelConfig: claude-config
+    tools:
+      - type: McpServer
+        mcpServer:
+          name: kagent-tool-server
+          kind: RemoteMCPServer
+          toolNames: [k8s_get_resources, k8s_get_pod_logs]
+---
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: agent-metriques
+  namespace: kagent
+spec:
+  type: Declarative
+  description: Specialiste des metriques Prometheus
+  declarative:
+    systemMessage: Tu interroges Prometheus, rien d'autre.
+    modelConfig: claude-config
+    tools:
+      - type: McpServer
+        mcpServer:
+          name: kagent-tool-server
+          kind: RemoteMCPServer
+          toolNames: [prometheus_query]
+---
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: orchestrateur
+  namespace: kagent
+spec:
+  type: Declarative
+  description: Coordonne le diagnostic entre specialistes
+  declarative:
+    systemMessage: |
+      Tu coordonnes le diagnostic. Delegue :
+      etat des pods → agent-etat ; metriques → agent-metriques.
+    modelConfig: claude-config
+    maxIterations: 6
+    tools:
+      - type: Agent
+        agent:
+          name: agent-etat
+      - type: Agent
+        agent:
+          name: agent-metriques

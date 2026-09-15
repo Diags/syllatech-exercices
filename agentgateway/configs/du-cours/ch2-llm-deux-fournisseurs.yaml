@@ -1,0 +1,17 @@
+# Chapitre 2 du support — « deux fournisseurs derriere une API unifiee ».
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - match: { path: /v1 }
+      backends:
+      - ai:
+          name: claude
+          provider:
+            anthropic:
+              model: claude-sonnet-5
+      - ai:
+          name: secours
+          provider:
+            openai:
+              model: gpt-5.2

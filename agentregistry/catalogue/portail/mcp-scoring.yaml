@@ -1,0 +1,32 @@
+# Le serveur MCP de scoring des CV, distribue sur PyPI.
+#
+# Deux differences avec l'image OCI d'a cote, et aucune n'est cosmetique :
+#   · origin.pypi.version est un champ OBLIGATOIRE (l'OCI encode la sienne
+#     dans l'identifiant) ;
+#   · transport.type: http exige un port — un « http » sans port est refuse.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: scoring-cv
+  tag: stable
+  labels:
+    portail.emploi/capacite: scoring
+    portail.emploi/donnees: candidats
+spec:
+  title: Scoring des candidatures
+  description: "Note une candidature sur les criteres declares d'une offre"
+  source:
+    package:
+      origin:
+        type: pypi
+        identifier: portail-mcp-scoring
+        pypi:
+          version: 0.6.2
+          serverName: io.github.portail-emploi/mcp-scoring
+      transport:
+        type: http
+        port: 8931
+        path: /mcp
+    repository:
+      url: https://github.com/portail-emploi/mcp-scoring
+      subfolder: serveur

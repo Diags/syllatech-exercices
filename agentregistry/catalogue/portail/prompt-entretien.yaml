@@ -1,0 +1,19 @@
+# Un prompt : des instructions versionnees, et rien d'autre.
+#
+# `spec.content` est FACULTATIF cote validateur. Ce fichier le remplit ;
+# le chapitre 3 montre ce qui se passe quand on l'oublie.
+apiVersion: ar.dev/v1alpha1
+kind: Prompt
+metadata:
+  name: entretien-structure
+  tag: stable
+spec:
+  description: "Instructions de conduite d'un entretien structure"
+  content: |
+    Tu conduis un entretien structure pour le Portail de l'emploi.
+
+    Regles :
+    - une meme grille pour tous les candidats d'une meme offre ;
+    - une question par critere declare dans l'offre, dans l'ordre ;
+    - aucune question sur l'age, la situation familiale ou l'origine ;
+    - a la fin, une note par critere et la citation qui la justifie.

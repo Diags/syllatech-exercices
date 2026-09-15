@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Portail de l'emploi — projet du cours « Java moderne ».
+
+  Aucune dependance en dehors de JUnit : tout ce que ce projet mesure vient
+  du JDK. C'est voulu — un cours de langage qui a besoin d'une bibliotheque
+  pour montrer le langage a rate quelque chose.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>fr.portail</groupId>
+  <artifactId>java-moderne</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Portail de l'emploi — Java moderne</name>
+
+  <properties>
+    <maven.compiler.release>25</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.11.4</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.2</version>
+        <configuration>
+          <!--
+            Les chapitres et les tests ecrivent des guillemets francais et des
+            accents. Sans cette ligne, la JVM de test herite de l'encodage de
+            la console — cp1252 sous Windows — et les messages d'echec
+            deviennent illisibles au moment ou on en a le plus besoin.
+          -->
+          <argLine>-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <!--
+          Sert a lancer un chapitre :
+            mvn -q compile exec:java -Dexec.mainClass=fr.portail.chapitres.Chapitre1Fondamentaux
+          `outils/chapitre.sh` enveloppe cette ligne. C'est le seul greffon
+          au-dela du necessaire, et il n'ajoute rien au code livre.
+        -->
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

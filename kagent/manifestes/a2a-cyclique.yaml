@@ -1,0 +1,35 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Deux agents qui se deleguent l'un a l'autre. Chacun est VALIDE isolement,
+# chacun est Ready, et le cycle n'apparait dans aucun manifeste : il faut
+# l'executer pour le voir. Le chapitre 4 le declenche.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: agent-ping
+  namespace: kagent
+spec:
+  type: Declarative
+  declarative:
+    systemMessage: Tu delegues a agent-pong.
+    modelConfig: claude-config
+    tools:
+      - type: Agent
+        agent:
+          name: agent-pong
+---
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: agent-pong
+  namespace: kagent
+spec:
+  type: Declarative
+  declarative:
+    systemMessage: Tu delegues a agent-ping.
+    modelConfig: claude-config
+    tools:
+      - type: Agent
+        agent:
+          name: agent-ping
