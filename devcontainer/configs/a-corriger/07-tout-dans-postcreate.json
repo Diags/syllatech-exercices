@@ -1,0 +1,9 @@
+// Valide de bout en bout. Trois preparations reunies dans la derniere des
+// trois commandes de creation : la decoupe est perdue, donc rien ne se
+// preconstruit — et `waitFor` valant `updateContentCommand` par defaut, on
+// obtient la main avant que les migrations soient finies.
+{
+  "name": "Tout a la fin",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "postCreateCommand": "mvn -B dependency:go-offline && mvn -B compile && mvn -B flyway:migrate"
+}

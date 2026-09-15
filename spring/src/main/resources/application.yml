@@ -1,0 +1,83 @@
+# Le portail de l'emploi — une seule application, plusieurs profils.
+#
+# Le code ne change pas entre dev et prod : seule la configuration active
+# change, via SPRING_PROFILES_ACTIVE. Les chapitres 2 et 6 le mesurent en
+# demarrant la MEME classe deux fois, avec deux profils, et en comparant les
+# proprietes obtenues.
+
+spring:
+  application:
+    name: portail-emploi
+  mvc:
+    # ⚠️ FAUX PAR DEFAUT, y compris en Spring Boot 4. Sans cette ligne, un
+    # echec de validation rend un 400 au CORPS VIDE : pas de ProblemDetail,
+    # pas de RFC 9457, rien a lire pour le client. Le chapitre 3 demarre
+    # l'application avec et sans, et compare les deux reponses.
+    problemdetails:
+      enabled: true
+  profiles:
+    default: dev
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    # Actif par defaut, et Spring Boot le signale a chaque demarrage. Il
+    # garde la session Hibernate ouverte jusqu'a la fin de la reponse HTTP :
+    # pratique, parce qu'il masque les LazyInitializationException — et
+    # couteux, parce qu'il retient une connexion pendant toute la
+    # serialisation. On le coupe, et on convertit en DTO dans le service.
+    open-in-view: false
+    properties:
+      hibernate:
+        # ⚠️ C'est cette ligne qui rend le chapitre 4 possible. Hibernate
+        # appelle cet inspecteur avec chaque instruction SQL, juste avant de
+        # l'envoyer : le N+1 devient un NOMBRE, et donc un test.
+        session_factory:
+          statement_inspector: fr.portail.mesure.CompteurDeRequetes
+
+management:
+  endpoints:
+    web:
+      exposure:
+        # `health` est expose par defaut ; `info` et `metrics` ne le sont pas.
+        # Les ouvrir demande un geste explicite — c'est le meme principe de
+        # refus par defaut que la chaine de filtres du chapitre 5.
+        include: health,info,metrics
+
+---
+spring:
+  config:
+    activate:
+      on-profile: dev
+  datasource:
+    url: jdbc:h2:mem:portail;DB_CLOSE_DELAY=-1
+    username: sa
+    password: ""
+  jpa:
+    show-sql: false
+management:
+  endpoint:
+    health:
+      # En dev on veut voir le detail des sondes. En prod, non : la liste des
+      # dependances d'un service est une information qu'on ne publie pas.
+      show-details: always
+
+---
+spring:
+  config:
+    activate:
+      on-profile: prod
+  datasource:
+    # Le secret vient de l'environnement, jamais du depot. La valeur de repli
+    # apres `:` n'est la que pour que le chapitre 2 puisse demarrer ce profil
+    # sans base : elle pointe vers H2, pas vers une vraie adresse.
+    url: ${DB_URL:jdbc:h2:mem:portail-prod;DB_CLOSE_DELAY=-1}
+    username: ${DB_USER:sa}
+    password: ${DB_PASSWORD:}
+  jpa:
+    hibernate:
+      # En prod, JAMAIS create-drop : le schema est gere par des migrations.
+      ddl-auto: validate
+management:
+  endpoint:
+    health:
+      show-details: never

@@ -1,0 +1,36 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Ce fichier construit la MEME application que `Dockerfile`, et il marche.
+# C'est ce qui le rend dangereux : rien n'echoue, rien n'avertit.
+#
+# Il concentre six defauts, chacun mesure par un chapitre :
+#
+#   1. un seul etage : Maven, javac, les sources et le depot `.m2` partent
+#      en production ;
+#   2. `COPY . .` en premier : le moindre caractere change dans n'importe
+#      quel fichier du projet invalide TOUT ce qui suit ;
+#   3. le `.env` du projet entre dans une couche — et le `rm` d'apres ne
+#      l'en sort pas ;
+#   4. `rm -rf /root/.m2` ne fait pas maigrir l'image d'un octet ;
+#   5. aucun `USER` : le conteneur tourne en root ;
+#   6. un `CMD` en forme shell : le PID 1 est `/bin/sh`, qui ne transmet
+#      pas le SIGTERM — l'arret se fait donc par SIGKILL, apres le delai
+#      de grace.
+#
+# `tests/test_a_corriger.py` verifie que ces six defauts sont toujours la.
+
+FROM maven:3.9-eclipse-temurin-21
+WORKDIR /app
+
+COPY . .
+
+RUN mvn dependency:go-offline -B
+RUN mvn package -DskipTests -B
+
+# « Pour alleger l'image. » Elle ne maigrit pas.
+RUN rm -rf /root/.m2
+# « Pour ne pas laisser trainer le secret. » Il ne part pas.
+RUN rm /app/.env
+
+EXPOSE 8080
+CMD java -jar target/jobportal.jar

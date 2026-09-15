@@ -1,0 +1,17 @@
+[project]
+name = "jobportal-zep"
+version = "1.0.0"
+description = "Projet de depart du cours syllatech « Zep : la memoire de vos agents IA »"
+requires-python = ">=3.11"
+dependencies = []
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+reel = ["zep-cloud>=2.0"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jobportal"]

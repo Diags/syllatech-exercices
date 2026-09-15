@@ -1,0 +1,15 @@
+# Chapitre 4 du support — « le proxy au milieu des echanges A2A, et un
+# routage guide par l'etat reel des GPU ».
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - backends:
+      - a2a:
+          target: http://agent-analyste:8080
+      - ai:
+          provider:
+            selfHosted:
+              endpoints: [vllm-1:8000, vllm-2:8000]
+          routing:
+            signals: [gpuUtilization, kvCache, queueDepth]

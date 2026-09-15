@@ -1,0 +1,14 @@
+# Ce que la PRODUCTION change — et rien d'autre.
+#
+# La fusion est PROFONDE : ce fichier ne redit pas `image.repository`, il
+# le laisse tel quel. Une liste, en revanche, serait remplacee en entier.
+
+replicas: 3
+
+ressources:
+  cpu: 500m
+  memoire: 1Gi
+
+ingress:
+  actif: true
+  hote: emploi.exemple.fr

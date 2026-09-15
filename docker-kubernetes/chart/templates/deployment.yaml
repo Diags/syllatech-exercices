@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Release.Name }}
+spec:
+  replicas: {{ .Values.replicas }}
+  progressDeadlineSeconds: 30
+  selector:
+    matchLabels: { app: {{ .Release.Name }} }
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxSurge: 1, maxUnavailable: 0 }
+  template:
+    metadata:
+      labels: { app: {{ .Release.Name }} }
+    spec:
+      containers:
+        - name: app
+          image: {{ .Values.image.repository }}:{{ required "image.tag est obligatoire : posez-le avec --set image.tag=$SHA" .Values.image.tag }}
+          ports: [{ containerPort: 8080 }]
+          resources:
+            requests: { cpu: {{ .Values.ressources.cpu }}, memory: {{ .Values.ressources.memoire }} }
+            limits:   { cpu: {{ .Values.ressources.cpu }}, memory: {{ .Values.ressources.memoire }} }
+{{- if .Values.sondes }}
+          readinessProbe:
+            httpGet: { path: /sante, port: 8080 }
+            initialDelaySeconds: 5
+{{- end }}

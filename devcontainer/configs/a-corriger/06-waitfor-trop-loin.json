@@ -1,0 +1,8 @@
+// On voudrait attendre la derniere commande. L'enumeration de `waitFor`
+// n'en compte que cinq : `postAttachCommand` n'en fait pas partie.
+{
+  "name": "Attendre la derniere",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "postAttachCommand": "git status",
+  "waitFor": "postAttachCommand"
+}

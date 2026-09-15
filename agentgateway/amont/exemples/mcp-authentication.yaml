@@ -1,0 +1,365 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+binds:
+- listeners:
+  - routes:
+    # --- Scenario A: Local stdio MCP + Spec-compliant External Authorization Server
+    # Exposes:
+    #   - MCP server (streamable HTTP) at /stdio/mcp
+    #   - Well-known OAuth Resource Metadata at /.well-known/oauth-protected-resource/stdio/mcp
+    # Validates incoming Bearer tokens against the configured Authorization Server (issuer + JWKS).
+    - backends:
+      - mcp:
+          targets:
+          - name: everything
+            stdio:
+              args:
+              - '@modelcontextprotocol/server-everything'
+              cmd: npx
+      matches:
+      - path:
+          exact: /stdio/mcp
+      - path:
+          exact: /.well-known/oauth-protected-resource/stdio/mcp
+      - path:
+          exact: /.well-known/oauth-authorization-server/stdio/mcp
+      policies:
+        cors:
+          allowHeaders:
+          - mcp-protocol-version
+          - content-type
+          allowOrigins:
+          - '*'
+          exposeHeaders:
+          - "Mcp-Session-Id"
+        mcpAuthentication:
+          mode: strict
+          issuer: http://localhost:9000
+          audiences:
+          - http://localhost:3000/stdio/mcp
+          jwks:
+            url: http://localhost:9000/.well-known/jwks.json
+          resourceMetadata:
+            resource: http://localhost:3000/stdio/mcp
+            scopesSupported:
+            - read:all
+            bearerMethodsSupported:
+            - header
+            - body
+            - query
+            resourceDocumentation: http://localhost:3000/stdio/docs
+            resourcePolicyUri: http://localhost:3000/stdio/policies
+    # --- Scenario B: Remote MCP over HTTPS + Spec-compliant Authorization Server
+    # Proxies to a remote MCP server and serves the same resource metadata locally.
+    - backends:
+      - mcp:
+          targets:
+          - mcp:
+              host: https://mcpbin.is.solo.io/remote/mcp
+            name: mcpbin
+      matches:
+      - path:
+          exact: /remote/mcp
+      - path:
+          exact: /.well-known/oauth-protected-resource/remote/mcp
+      policies:
+        cors:
+          allowHeaders:
+          - mcp-protocol-version
+          - content-type
+          allowOrigins:
+          - '*'
+          exposeHeaders:
+          - "Mcp-Session-Id"
+        mcpAuthentication:
+          issuer: http://localhost:9000
+          audiences:
+          - http://localhost:3000/remote/mcp
+          jwks:
+            url: http://localhost:9000/.well-known/jwks.json
+          resourceMetadata:
+            resource: http://localhost:3000/remote/mcp
+            scopesSupported:
+            - offline_access
+            bearerMethodsSupported:
+            - header
+            - body
+            - query
+            resourceDocumentation: http://localhost:3000/remote/docs
+            resourcePolicyUri: http://localhost:3000/remote/policies
+    # --- Scenario C: Local stdio MCP + Keycloak adaptation (non-spec provider)
+    # When the provider isn't spec-compliant, enable an adapter that exposes modified
+    # oauth-authorization-server endpoints while still validating JWTs.
+    - backends:
+      - mcp:
+          targets:
+          - name: everything
+            stdio:
+              args:
+              - '@modelcontextprotocol/server-everything'
+              cmd: npx
+      matches:
+      - path:
+          exact: /keycloak/mcp
+      - path:
+          exact: /.well-known/oauth-protected-resource/keycloak/mcp
+      - path:
+          exact: /.well-known/oauth-authorization-server/keycloak/mcp
+      - path:
+          exact: /.well-known/oauth-authorization-server/keycloak/mcp/client-registration
+      policies:
+        cors:
+          allowHeaders:
+          - mcp-protocol-version
+          - content-type
+          allowOrigins:
+          - '*'
+        mcpAuthentication:
+          issuer: http://localhost:7080/realms/mcp
+          audiences:
+          - mcp_proxy
+          jwks:
+            url: http://localhost:7080/realms/mcp/protocol/openid-connect/certs
+          provider:
+            keycloak: {}
+          resourceMetadata:
+            resource: http://localhost:3000/keycloak/mcp
+            scopesSupported:
+            - profile
+            - offline_access
+            - openid
+            bearerMethodsSupported:
+            - header
+            - body
+            - query
+            resourceDocumentation: http://localhost:3000/keycloak/docs
+            resourcePolicyUri: http://localhost:3000/keycloak/policies
+            # Example configuration for Auth0:
+            # - backends:
+            #   - mcp:
+            #       targets:
+            #       - name: everything
+            #         stdio:
+            #           args:
+            #           - '@modelcontextprotocol/server-everything'
+            #           cmd: npx
+            #   matches:
+            #   - path:
+            #       exact: /auth0/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-protected-resource/auth0/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/auth0/mcp
+            #   policies:
+            #     cors:
+            #       allowHeaders:
+            #       - mcp-protocol-version
+            #       - content-type
+            #       allowOrigins:
+            #       - '*'
+            #     mcpAuthentication:
+            #       issuer: https://dev-y6sikgx3n3shy7ci.eu.auth0.com
+            #       audiences:
+            #       - urn:agent-gateway
+            #       jwks:
+            #         url: https://dev-y6sikgx3n3shy7ci.eu.auth0.com/.well-known/jwks.json
+            #       provider:
+            #         auth0: {}
+            #       resourceMetadata:
+            #         resource: http://localhost:3000/auth0/mcp
+            #         scopesSupported:
+            #         - profile
+            #         - offline_access
+            #         - openid
+            #         bearerMethodsSupported:
+            #         - header
+            #         - body
+            #         - query
+            #         resourceDocumentation: http://localhost:3000/keycloak/docs
+            #         resourcePolicyUri: http://localhost:3000/keycloak/policies
+            # Example configuration for Okta:
+            # - backends:
+            #   - mcp:
+            #       targets:
+            #       - name: everything
+            #         stdio:
+            #           args:
+            #           - '@modelcontextprotocol/server-everything'
+            #           cmd: npx
+            #   matches:
+            #   - path:
+            #       exact: /okta/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-protected-resource/okta/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/okta/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/okta/mcp/client-registration
+            #   policies:
+            #     cors:
+            #       allowHeaders:
+            #       - mcp-protocol-version
+            #       - content-type
+            #       allowOrigins:
+            #       - '*'
+            #     mcpAuthentication:
+            #       issuer: https://dev-123456.okta.com/oauth2/default
+            #       audiences:
+            #       - api://default
+            #       jwks:
+            #         url: https://dev-123456.okta.com/oauth2/default/.well-known/jwks.json
+            #       provider:
+            #         okta: {}
+            #       resourceMetadata:
+            #         resource: http://localhost:3000/okta/mcp
+            #         scopesSupported:
+            #         - profile
+            #         - offline_access
+            #         - openid
+            #         bearerMethodsSupported:
+            #         - header
+            #         - body
+            #         - query
+            #         resourceDocumentation: http://localhost:3000/okta/docs
+            #         resourcePolicyUri: http://localhost:3000/okta/policies
+            # Example configuration for Descope:
+            # - backends:
+            #   - mcp:
+            #       targets:
+            #       - name: everything
+            #         stdio:
+            #           args:
+            #           - '@modelcontextprotocol/server-everything'
+            #           cmd: npx
+            #   matches:
+            #   - path:
+            #       exact: /descope/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-protected-resource/descope/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/descope/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/descope/mcp/client-registration
+            #   policies:
+            #     cors:
+            #       allowHeaders:
+            #       - mcp-protocol-version
+            #       - content-type
+            #       allowOrigins:
+            #       - '*'
+            #     mcpAuthentication:
+            #       issuer: https://api.descope.com/v1/apps/agentic/<project-id>/<server-id>
+            #       audiences:
+            #       - <your-audience>
+            #       provider:
+            #         descope: {}
+            #       # clientId is recommended — DCR requires a management key not available to MCP clients
+            #       clientId: <pre-registered-client-id>
+            #       resourceMetadata:
+            #         resource: http://localhost:3000/descope/mcp
+            #         scopesSupported:
+            #         - openid
+            #         - profile
+            #         bearerMethodsSupported:
+            #         - header
+            #         resourceDocumentation: http://localhost:3000/descope/docs
+            #         resourcePolicyUri: http://localhost:3000/descope/policies
+            # Example configuration for authentik:
+            # - backends:
+            #   - mcp:
+            #       targets:
+            #       - name: everything
+            #         stdio:
+            #           args:
+            #           - '@modelcontextprotocol/server-everything'
+            #           cmd: npx
+            #   matches:
+            #   - path:
+            #       exact: /authentik/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-protected-resource/authentik/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/authentik/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-authorization-server/authentik/mcp/client-registration
+            #   policies:
+            #     cors:
+            #       allowHeaders:
+            #       - mcp-protocol-version
+            #       - content-type
+            #       allowOrigins:
+            #       - '*'
+            #     mcpAuthentication:
+            #       issuer: https://authentik.example.com/application/o/<app-slug>/
+            #       audiences:
+            #       # authentik sets `aud` to the OAuth client ID
+            #       - <pre-registered-client-id>
+            #       provider:
+            #         authentik: {}
+            #       # clientId is required — authentik does not support DCR, so the gateway
+            #       # answers registration requests with this pre-registered public client
+            #       clientId: <pre-registered-client-id>
+            #       resourceMetadata:
+            #         resource: http://localhost:3000/authentik/mcp
+            #         scopesSupported:
+            #         - openid
+            #         - profile
+            #         - offline_access
+            #         bearerMethodsSupported:
+            #         - header
+            #         resourceDocumentation: http://localhost:3000/authentik/docs
+            #         resourcePolicyUri: http://localhost:3000/authentik/policies
+            # Example configuration for Microsoft Entra ID (Azure AD):
+            # Note the pathPrefix match on the authorization-server path: the gateway serves
+            # /authorize, /token, and /client-registration endpoints beneath it to adapt
+            # Entra (strip the RFC 8707 `resource` param, short-circuit DCR).
+            # - backends:
+            #   - mcp:
+            #       targets:
+            #       - name: everything
+            #         stdio:
+            #           args:
+            #           - '@modelcontextprotocol/server-everything'
+            #           cmd: npx
+            #   matches:
+            #   - path:
+            #       exact: /entra/mcp
+            #   - path:
+            #       exact: /.well-known/oauth-protected-resource/entra/mcp
+            #   - path:
+            #       pathPrefix: /.well-known/oauth-authorization-server/entra/mcp
+            #   policies:
+            #     cors:
+            #       allowHeaders:
+            #       - mcp-protocol-version
+            #       - content-type
+            #       # authorization is needed on the proxied token endpoint for clients
+            #       # authenticating with client_secret_basic
+            #       - authorization
+            #       allowOrigins:
+            #       - '*'
+            #     mcpAuthentication:
+            #       # v2 issuer form; the v1 form https://sts.windows.net/<tenant-id>/ is also
+            #       # supported (use it when the app registration mints v1 access tokens).
+            #       issuer: https://login.microsoftonline.com/<tenant-id>/v2.0
+            #       audiences:
+            #       - api://<client-id>
+            #       - <client-id>
+            #       # jwks defaults to https://login.microsoftonline.com/<tenant-id>/discovery/v2.0/keys
+            #       provider:
+            #         entra: {}
+            #       # Entra has no Dynamic Client Registration; the gateway answers registration
+            #       # requests with this pre-registered app registration (client) id.
+            #       clientId: <client-id>
+            #       # Required for confidential clients (Web platform app registrations);
+            #       # injected into token requests the gateway proxies to Entra.
+            #       clientSecret: <client-secret>
+            #       resourceMetadata:
+            #         resource: http://localhost:3000/entra/mcp
+            #         scopesSupported:
+            #         - api://<client-id>/mcp_access
+            #         - openid
+            #         - offline_access
+            #         bearerMethodsSupported:
+            #         - header
+  # Public port to listen on
+  port: 3000

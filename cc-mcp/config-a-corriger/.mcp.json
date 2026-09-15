@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "jobportal": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", ".", "jobportal-mcp"]
+    },
+    "github": {
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ghp_R7kQ2mNvX8pL4wZaB3cD5eF6gH7jK8"
+      }
+    },
+    "notifications": {
+      "type": "sse",
+      "url": "https://exemple.fr/mcp/sse"
+    }
+  }
+}

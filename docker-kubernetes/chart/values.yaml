@@ -1,0 +1,21 @@
+# Les valeurs par defaut — celles de la DEV.
+#
+# ⚠️ `image.tag` n'a volontairement PAS de valeur par defaut. Le gabarit
+# l'entoure d'un `required` : une publication sans tag echoue au rendu,
+# pas six minutes plus tard dans le cluster. Voir le chapitre 6.
+
+replicas: 1
+
+image:
+  repository: registry.exemple.fr/jobportal
+  tag: ""
+
+ressources:
+  cpu: 250m
+  memoire: 512Mi
+
+sondes: true
+
+ingress:
+  actif: false
+  hote: app.exemple.fr

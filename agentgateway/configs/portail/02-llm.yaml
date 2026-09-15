@@ -1,0 +1,58 @@
+# La passerelle LLM du portail.
+#
+# `llm.models` declare ce qui existe ; `llm.virtualModels` declare ce que les
+# applications demandent. Les deux ne se confondent pas : un modele
+# `visibility: internal` ne peut pas etre demande directement.
+llm:
+  gateways: [default]
+  models:
+  - name: tri-rapide
+    visibility: internal
+    provider: anthropic
+    params:
+      model: claude-haiku-4-5
+      apiKey: $ANTHROPIC_API_KEY
+  - name: tri-soigne
+    visibility: internal
+    provider: anthropic
+    params:
+      model: claude-opus-5
+      apiKey: $ANTHROPIC_API_KEY
+  - name: tri-secours
+    visibility: internal
+    provider: openAI
+    params:
+      model: gpt-5.2
+      apiKey: $OPENAI_API_KEY
+  virtualModels:
+  # Le modele que les applications demandent. Le choix se fait a la requete.
+  - name: tri-candidature
+    routing:
+      conditional:
+        targets:
+        # `has(...)` est la forme defensive, et elle est du CEL STANDARD :
+        # sans elle, une requete sans le champ fait LEVER l'expression.
+        # agentgateway ajoute aussi `default(...)`, plus court — mais c'est
+        # une extension maison, que seul agentgateway sait evaluer.
+        - when: 'has(llmRequest.metadata) && has(llmRequest.metadata.urgence)
+                 && llmRequest.metadata.urgence == "haute"'
+          model: tri-soigne
+        - when: 'has(llmRequest.max_tokens) && llmRequest.max_tokens <= 512'
+          model: tri-rapide
+        # La derniere cible n'a pas de `when` : c'est le repli obligatoire.
+        - model: tri-soigne
+  # Une bascule par priorite : meme service, deux fournisseurs.
+  - name: tri-resilient
+    routing:
+      failover:
+        targets:
+        - model: tri-soigne
+          priority: 0
+        - model: tri-secours
+          priority: 1
+# `gateways` est une TABLE nommee, pas une liste : la cle EST le nom
+# auquel `llm.gateways` se rattache. `binds`, lui, est une liste.
+gateways:
+  default:
+    port: 4000
+    protocol: HTTP

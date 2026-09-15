@@ -1,0 +1,7 @@
+// image et build declares ensemble. Les trois points de depart s'excluent,
+// et le schema le dit — mais son message parle de `dockerComposeFile`.
+{
+  "name": "Deux points de depart",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "build": { "dockerfile": "Dockerfile", "context": ".." }
+}

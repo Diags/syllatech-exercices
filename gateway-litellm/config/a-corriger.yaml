@@ -1,0 +1,44 @@
+# config.yaml — six défauts, aucune erreur au démarrage.
+#
+# `litellm --config config/a-corriger.yaml` démarre. Le proxy répond. Les
+# applications fonctionnent. Et six choses ne font pas ce qu'on croit.
+#
+# `uv run python outils/verifier_config.py config/a-corriger.yaml`
+
+model_list:
+  - model_name: claude
+    litellm_params:
+      model: anthropic/claude-sonnet-4-5
+      # 1. La clé en clair dans un fichier versionné.
+      api_key: sk-ant-api03-EXEMPLE-NE-PAS-UTILISER
+      mock_response: "litellm.RateLimitError"
+
+  # 2. Le même alias déclaré deux fois. On croit remplacer le premier ; LiteLLM
+  #    y voit deux déploiements et répartit la charge entre les deux.
+  - model_name: claude
+    litellm_params:
+      model: openai/gpt-4o
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "Reponse du second deploiement."
+
+  # 3. Un modèle absent de la table de prix de litellm : chaque appel est
+  #    facturé 0,00 $, pour toujours, sans le moindre avertissement.
+  - model_name: maison
+    litellm_params:
+      model: openai/modele-maison-v3
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "Reponse du modele maison."
+
+litellm_settings:
+  fallbacks:
+    # 4. « gpt » n'est déclaré nulle part dans model_list. La bascule ne peut
+    #    pas se produire, et l'erreur rendue est celle du modèle PRINCIPAL —
+    #    on cherche donc la panne du mauvais côté.
+    - claude: ["gpt"]
+  # 5. Deux réessais avant la bascule : mesuré à ~4,7 s d'attente, contre
+  #    ~130 ms sans réessai.
+  num_retries: 2
+
+general_settings:
+  # 6. La clé maître en clair, et c'est celle qui génère les clés virtuelles.
+  master_key: sk-maitre-1234
