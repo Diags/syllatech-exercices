@@ -1,0 +1,19 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Il reference un `ModelConfig` qui n'existe pas. `kubectl apply` repond
+# « created » : l'admission ne verifie PAS les references, et elle a raison
+# — en declaratif, l'ordre d'application ne doit pas compter.
+#
+# L'agent existe donc, et n'est jamais invocable. La seule trace est dans
+# `status.conditions`, que personne ne regarde.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-orphelin
+  namespace: kagent
+spec:
+  type: Declarative
+  declarative:
+    systemMessage: Tu diagnostiques les incidents.
+    modelConfig: modele-qui-nexiste-pas

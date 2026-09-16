@@ -1,0 +1,64 @@
+# full-stack.yaml
+#
+# A single file defining an agent and all its dependencies.
+# Apply with: arctl apply -f full-stack.yaml
+#
+# Resources are applied in document order, so define dependencies first:
+#   1. MCP servers and skills the agent references
+#   2. Prompts the agent uses
+#   3. The agent itself
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: acme-fetch
+  tag: stable
+spec:
+  title: Fetch Server
+  description: "Fetches and extracts content from URLs"
+  source:
+    package:
+      origin:
+        type: oci
+        identifier: localhost:5001/acme/fetch:1.0.0
+        oci:
+          serverName: acme-fetch
+      transport:
+        type: stdio
+---
+apiVersion: ar.dev/v1alpha1
+kind: Skill
+metadata:
+  name: summarize
+  tag: stable
+spec:
+  title: Summarization
+  description: "Summarizes long text into concise form"
+  source:
+    repository:
+      url: https://github.com/acme/agent-skills
+      subfolder: skills/summarize
+---
+apiVersion: ar.dev/v1alpha1
+kind: Prompt
+metadata:
+  name: summarizer-system-prompt
+  tag: stable
+spec:
+  description: "Default system prompt for summarization agents"
+  content: |
+    You are a document summarization assistant.
+    Keep summaries concise and accurate.
+---
+apiVersion: ar.dev/v1alpha1
+kind: Agent
+metadata:
+  name: summarizer
+spec:
+  source:
+    image: ghcr.io/acme/summarizer:v1.0.0
+  description: "An agent that summarizes documents"
+  # References to resources defined above -- resolved from the registry at deploy time.
+  mcpServers:
+    - kind: MCPServer
+      name: acme-fetch
+      tag: stable

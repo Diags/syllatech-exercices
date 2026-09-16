@@ -1,0 +1,38 @@
+# L'ecosysteme complet en local.
+#
+# ⚠️ `depends_on` attend le DEMARRAGE, pas la disponibilite. Le
+# chapitre 4 le mesure : un service peut demarrer avant que sa
+# dependance ne reponde, et c'est pour cela que la configuration
+# porte `optional:` et que les clients reessaient.
+services:
+  eureka:
+    build: ./eureka
+    ports: ["8761:8761"]
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8761/actuator/health"]
+      interval: 5s
+      retries: 10
+
+  offres-service:
+    build: ./offres
+    depends_on:
+      eureka:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+      EUREKA_CLIENT_SERVICEURL_DEFAULTZONE: http://eureka:8761/eureka/
+    deploy:
+      replicas: 2
+
+  candidatures-service:
+    build: ./candidatures
+    depends_on:
+      eureka:
+        condition: service_healthy
+    environment:
+      SPRING_PROFILES_ACTIVE: docker
+
+  passerelle:
+    build: ./passerelle
+    ports: ["8080:8080"]
+    depends_on: [offres-service, candidatures-service]

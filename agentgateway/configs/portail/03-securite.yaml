@@ -1,0 +1,57 @@
+# La route protegee : authentifier, autoriser, filtrer.
+#
+# Les trois politiques vivent au MEME endroit — `policies` d'une route — et
+# s'appliquent dans cet ordre. Le guardrail, lui, est sous `policies.ai`,
+# pas a la racine des politiques.
+binds:
+- port: 3000
+  listeners:
+  - name: protege
+    protocol: HTTP
+    routes:
+    - name: llm-protege
+      matches:
+      - path:
+          pathPrefix: /v1
+      policies:
+        jwtAuth:
+          # SANS cette ligne, le defaut est `optional` — et le schema le dit
+          # en toutes lettres : « Warning: this allows requests without a
+          # JWT. » Une passerelle qui « authentifie » sans `mode: strict`
+          # n'authentifie que ceux qui se presentent.
+          mode: strict
+          issuer: https://auth.portail-emploi.test
+          audiences: [agents]
+          jwks:
+            file: ./configs/portail/jwks.json
+        mcpAuthorization:
+          rules:
+          # `has(...)` evite que l'expression LEVE quand la revendication
+          # manque. Sans lui, un jeton sans `team` fait echouer la regle —
+          # ce qui refuse sur un `allow`, et laisserait passer sur un `deny`.
+          - allow: 'has(jwt.team) && jwt.team == "rh"
+                    && mcp.tool.name.startsWith("offres_")'
+          - allow: 'has(jwt.team) && jwt.team == "data"
+                    && mcp.tool.name.startsWith("annuaire_")'
+          # Une exigence qui vaut pour TOUTES les requetes.
+          - require: 'has(jwt.sub)'
+        ai:
+          promptGuard:
+            request:
+            - regex:
+                # Sans cette ligne, l'action serait « mask » : la requete
+                # passerait, amputee.
+                action: reject
+                rules:
+                - builtin: creditCard
+                - builtin: ssn
+              rejection:
+                status: 400
+                body: |
+                  {"error": "donnee sensible dans la requete"}
+      backends:
+      - ai:
+          name: tri
+          provider:
+            anthropic:
+              model: claude-opus-5

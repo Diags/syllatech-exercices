@@ -1,0 +1,59 @@
+// Le dev container du Portail de l'emploi.
+//
+// Ce fichier est du JSONC : les commentaires et les virgules finales sont
+// autorises, et le schema publie le declare lui-meme (`allowComments`,
+// `allowTrailingCommas`). Un `json.load` ordinaire echoue dessus — c'est la
+// premiere mesure du chapitre 1.
+{
+  "name": "Portail de l'emploi — Java 21",
+
+  // build, image et dockerComposeFile s'excluent : on en choisit UN.
+  "build": {
+    "dockerfile": "Dockerfile",
+    // ".." parce que ce fichier vit dans .devcontainer/ : le contexte doit
+    // remonter d'un cran pour voir le pom.xml. Ecrire "." est l'erreur du
+    // premier essai, et le message parle de fichiers introuvables.
+    "context": "..",
+    "target": "dev",
+    "args": { "VARIANT": "21-bookworm" }
+  },
+
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "installZsh": true,
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/java:1": { "version": "21" },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {}
+  },
+
+  // Les six commandes, dans l'ordre exact ou elles s'executent.
+  "initializeCommand": "./scripts/verifie-hote.sh",
+  "onCreateCommand": "mvn -q -B dependency:go-offline",
+  "updateContentCommand": "mvn -q -B compile",
+  "postCreateCommand": "mvn -q -B flyway:migrate",
+  "postStartCommand": "echo 'conteneur pret'",
+  // waitFor vaut updateContentCommand par defaut, soit la DEUXIEME des
+  // trois : sans cette ligne, on obtient la main avant les migrations.
+  "waitFor": "postCreateCommand",
+
+  "forwardPorts": [8080, 5432],
+  "portsAttributes": {
+    "8080": { "label": "API du portail", "onAutoForward": "notify" },
+    "5432": { "label": "PostgreSQL", "onAutoForward": "silent" }
+  },
+
+  "remoteUser": "vscode",
+  "updateRemoteUserUID": true,
+
+  "mounts": [
+    // Le cache Maven : sans lui, chaque reconstruction retelecharge tout.
+    "source=${localEnv:HOME}/.m2,target=/home/vscode/.m2,type=bind,consistency=cached"
+  ],
+
+  "containerEnv": { "TZ": "Europe/Paris" },
+  "remoteEnv": { "MAVEN_OPTS": "-Xmx2g" },
+
+  "shutdownAction": "stopContainer"
+}

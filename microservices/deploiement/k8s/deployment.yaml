@@ -1,0 +1,61 @@
+# Le deploiement du service des offres.
+#
+# ⚠️ Quatre reglages decident du comportement en production, et
+# trois d'entre eux sont facultatifs — donc souvent absents :
+# les sondes, les limites de ressources, et la strategie de mise
+# a jour. Le chapitre 5 les lit et calcule ce qu'ils impliquent.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offres-service
+  labels:
+    app: offres-service
+spec:
+  replicas: 4
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 1
+  selector:
+    matchLabels:
+      app: offres-service
+  template:
+    metadata:
+      labels:
+        app: offres-service
+    spec:
+      containers:
+        - name: offres-service
+          image: registre.interne/portail/offres-service:1.4.0
+          ports:
+            - containerPort: 8080
+          env:
+            - name: SPRING_PROFILES_ACTIVE
+              value: kubernetes
+          resources:
+            requests:
+              cpu: 250m
+              memory: 512Mi
+            limits:
+              cpu: 1000m
+              memory: 1Gi
+          # La sonde de VIVACITE : si elle echoue, le conteneur est
+          # redemarre. Elle doit donc tester l'application, pas ses
+          # dependances — sinon une base lente provoque une boucle
+          # de redemarrages.
+          livenessProbe:
+            httpGet:
+              path: /actuator/health/liveness
+              port: 8080
+            initialDelaySeconds: 20
+            periodSeconds: 10
+          # La sonde de DISPONIBILITE : si elle echoue, le pod est
+          # retire du service, sans redemarrage. C'est elle qui doit
+          # tenir compte des dependances.
+          readinessProbe:
+            httpGet:
+              path: /actuator/health/readiness
+              port: 8080
+            initialDelaySeconds: 5
+            periodSeconds: 5

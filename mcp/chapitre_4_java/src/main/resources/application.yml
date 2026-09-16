@@ -1,0 +1,11 @@
+spring:
+  ai:
+    mcp:
+      server:
+        name: jobportal
+        version: 1.0.0
+        # Le contrat est public : renommer un outil casse les agents en place.
+        # C'est pourquoi la version compte autant que pour une API REST.
+        type: SYNC
+server:
+  port: 8080

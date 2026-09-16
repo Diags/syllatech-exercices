@@ -1,0 +1,10 @@
+# Ce que la production change — et RIEN d'autre.
+replicaCount: 6
+resources:
+  requests:
+    cpu: 500m
+    memory: 1Gi
+  limits:
+    cpu: 2000m
+    memory: 2Gi
+profil: production

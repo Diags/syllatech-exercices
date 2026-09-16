@@ -1,0 +1,31 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run lint*)",
+      "Bash(npm test*)",
+      "mcp__db__query",
+      "mcp__db__schema"
+    ],
+    "deny": [
+      "Bash(rm -rf *)",
+      "Bash(git push --force *)",
+      "mcp__db__execute"
+    ]
+  },
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{
+        "type": "command",
+        "command": "python $CLAUDE_PROJECT_DIR/.claude/hooks/formate.py"
+      }]
+    }],
+    "PreToolUse": [{
+      "matcher": "Bash",
+      "hooks": [{
+        "type": "command",
+        "command": "python $CLAUDE_PROJECT_DIR/.claude/hooks/garde_bash.py"
+      }]
+    }]
+  }
+}

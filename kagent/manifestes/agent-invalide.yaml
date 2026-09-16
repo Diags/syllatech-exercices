@@ -1,0 +1,16 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Celui-ci, en revanche, est REFUSE par l'admission — et c'est la difference
+# qui compte : un manifeste qui viole le schema fait echouer `kubectl apply`
+# bruyamment, alors qu'un champ mal orthographie passe en silence.
+#
+#   type: Declaratif           hors de l'enumeration
+#   pas de bloc `declarative`  la regle transverse le refuse
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-invalide
+  namespace: kagent
+spec:
+  type: Declaratif

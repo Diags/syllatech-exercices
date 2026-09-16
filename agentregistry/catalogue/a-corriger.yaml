@@ -1,0 +1,179 @@
+# a-corriger.yaml — onze manifestes, onze defauts, aucune faute de YAML.
+#
+# Chaque document ci-dessous est du YAML valide et se lit sans broncher en
+# revue. Les trois couches du projet ne les attrapent pas aux memes endroits,
+# et trois d'entre eux ne sont attrapes par AUCUNE — c'est le sujet du
+# chapitre 3.
+#
+# Ne pas « reparer » ce fichier : les chapitres et les tests mesurent dessus.
+
+# 1. L'apiVersion du support de cours, pas celle du registre.
+#    Le schema publie declare `apiVersion: {type: string}` — il l'accepte.
+apiVersion: registry.agentregistry.dev/v1
+kind: MCPServer
+metadata:
+  name: mauvaise-api
+  tag: stable
+spec:
+  source:
+    package:
+      origin:
+        type: oci
+        identifier: ghcr.io/portail-emploi/mcp-offres:1.4.0
+        oci:
+          serverName: io.github.portail-emploi/mcp-offres
+      transport:
+        type: stdio
+---
+# 2. Un spec vide. MCPServerSpec ne declare AUCUN champ obligatoire dans
+#    l'OpenAPI publie ; la regle « source ou remote » vit dans le validateur.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: spec-vide
+  tag: stable
+spec: {}
+---
+# 3. Une source vide. Le validateur sort avant d'avoir rien exige : ni
+#    paquet, ni depot, et c'est valide partout. Le serveur n'a ni adresse
+#    ni transport, et le catalogue l'affiche comme les autres.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: source-vide
+  tag: stable
+spec:
+  title: Serveur sans rien dedans
+  source: {}
+---
+# 4. La forme du support de cours : runtime / package / transport a plat.
+#    Trois champs inconnus de MCPServerSpec, qui declare
+#    `additionalProperties: false`.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: forme-a-plat
+  tag: stable
+spec:
+  runtime: uvx
+  package: portail-mcp-scoring
+  transport: stdio
+---
+# 5. Un transport de remote pose sur un paquet. L'ensemble est ferme a
+#    « stdio | http » cote paquet — « sse » et « streamable-http » sont les
+#    types d'un `spec.remote`, pas ceux d'un transport de paquet.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: transport-croise
+  tag: stable
+spec:
+  source:
+    package:
+      origin:
+        type: oci
+        identifier: ghcr.io/portail-emploi/mcp-offres:1.4.0
+        oci:
+          serverName: io.github.portail-emploi/mcp-offres
+      transport:
+        type: streamable-http
+---
+# 6. Une image OCI sans tag ni digest. Le commentaire de l'exemple amont dit
+#    qu'il en faut un ; le validateur structurel ne le verifie pas, et le
+#    test amont TestMCPServerValidate_HTTPPortRange fait meme passer un
+#    « :latest ». La consequence se voit ailleurs : dans la fiche publiee.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: sans-version
+  tag: latest
+spec:
+  title: Offres, edition flottante
+  source:
+    package:
+      origin:
+        type: oci
+        identifier: ghcr.io/portail-emploi/mcp-offres
+        oci:
+          serverName: io.github.portail-emploi/mcp-offres
+      transport:
+        type: stdio
+---
+# 7. Un nom de fichier de config, pas un nom DNS-1123. Le schema publie ne
+#    pose aucun motif sur metadata.name ; le validateur en pose un.
+apiVersion: ar.dev/v1alpha1
+kind: Skill
+metadata:
+  name: Tri_Candidatures
+  tag: stable
+spec:
+  title: Tri des candidatures
+  source:
+    repository:
+      url: https://github.com/portail-emploi/competences
+---
+# 8. Une branche sans depot. Le champ a l'air d'epingler quelque chose ; il
+#    n'epingle rien, et le validateur le dit explicitement.
+apiVersion: ar.dev/v1alpha1
+kind: Skill
+metadata:
+  name: entretien-guide
+  tag: stable
+spec:
+  source:
+    repository:
+      branch: production
+---
+# 9. Un prompt vide. Valide partout, par decision explicite du validateur
+#    amont : « Content MAY be empty (a prompt can be purely descriptive) ».
+apiVersion: ar.dev/v1alpha1
+kind: Prompt
+metadata:
+  name: consignes-entretien
+  tag: stable
+spec:
+  description: "Instructions de conduite d'un entretien structure"
+---
+# 10. Des skills sans compatibleHarnesses, et une reference sans `kind`.
+#     Deux defauts opposes : le premier, seul le validateur le voit ; le
+#     second, seul le schema publie le voit — il declare `kind` obligatoire
+#     sur ResourceRef, la ou le validateur le pose tout seul.
+apiVersion: ar.dev/v1alpha1
+kind: Agent
+metadata:
+  name: recruteur-nu
+  tag: stable
+spec:
+  title: Agent recruteur, sans harnais
+  source:
+    image: ghcr.io/portail-emploi/agent-recruteur:2.1.0
+  mcpServers:
+    - name: offres
+      tag: stable
+  skills:
+    - kind: Skill
+      name: tri-candidatures
+      tag: stable
+---
+# 11. Un agent dont tout est bien forme et dont rien n'existe : un serveur
+#     MCP jamais publie, et un skill epingle sur une etiquette absente.
+#     Aucune des deux premieres couches ne peut le voir.
+apiVersion: ar.dev/v1alpha1
+kind: Agent
+metadata:
+  name: recruteur-fantome
+  tag: stable
+spec:
+  title: Agent recruteur, dependances absentes
+  source:
+    image: ghcr.io/portail-emploi/agent-recruteur:2.1.0
+  compatibleHarnesses:
+    - type: claude-code
+  mcpServers:
+    - kind: MCPServer
+      name: mcp-referentiel-rome
+      tag: stable
+  skills:
+    - kind: Skill
+      name: tri-candidatures
+      tag: v2

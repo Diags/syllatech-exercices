@@ -1,0 +1,13 @@
+# Chapitre 1 du support — « le plus petit proxy utile ».
+# Recopie telle quelle, sans un caractere de plus.
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - backends:
+      - mcp:
+          targets:
+          - name: everything
+            stdio:
+              cmd: npx
+              args: ["@modelcontextprotocol/server-everything"]

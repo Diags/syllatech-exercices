@@ -1,0 +1,8 @@
+// Valide. `postAttachCommand` se rejoue a CHAQUE connexion d'un outil — un
+// nouvel onglet de terminal compte. Le symptome : « depuis quelque temps,
+// ouvrir un terminal prend vingt secondes ».
+{
+  "name": "Vingt secondes par onglet",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "postAttachCommand": "mvn -B dependency:go-offline"
+}

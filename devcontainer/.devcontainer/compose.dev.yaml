@@ -1,0 +1,7 @@
+# La surcharge de developpement du chapitre 6. Elle complete le fichier
+# Compose du projet ; l'ordre de `dockerComposeFile` decide qui gagne.
+services:
+  app:
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
+    command: sleep infinity

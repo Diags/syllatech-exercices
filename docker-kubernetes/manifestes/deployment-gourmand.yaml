@@ -1,0 +1,29 @@
+# Quatre repliques qui demandent 2 Gi chacune, sur un cluster qui n'en a
+# pas autant. Le manifeste est correct ; l'ordonnanceur ne peut rien pour
+# la quatrieme, qui restera `Pending` indefiniment.
+#
+# C'est la lecon du chapitre 5 : `requests` n'est pas une estimation, c'est
+# une RESERVATION. Un chiffre pose au hasard « pour etre tranquille »
+# immobilise de la memoire que personne n'utilise, et fait tomber en panne
+# un deploiement qui aurait tenu.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobportal-gourmand
+spec:
+  replicas: 4
+  selector:
+    matchLabels: { app: jobportal-gourmand }
+  template:
+    metadata:
+      labels: { app: jobportal-gourmand }
+    spec:
+      containers:
+        - name: app
+          image: registry.exemple.fr/jobportal:1.0
+          resources:
+            requests: { cpu: 500m, memory: 2Gi }
+            limits:   { cpu: 1, memory: 2Gi }
+          readinessProbe:
+            httpGet: { path: /sante, port: 8080 }

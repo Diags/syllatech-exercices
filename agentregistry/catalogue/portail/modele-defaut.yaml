@@ -1,0 +1,18 @@
+# Le modele par defaut de l'espace de noms.
+#
+# Un Deployment d'agent « harness » qui omet spec.modelRef resout
+# Model/<espace>/default@latest. Si ce fichier n'existe pas, le Deployment
+# est refuse pour reference pendante : « The registry never selects the first
+# or only Model automatically, because catalog growth would make that
+# behavior nondeterministic. »
+apiVersion: ar.dev/v1alpha1
+kind: Model
+metadata:
+  name: default
+  # tag omis : stocke et resolu comme l'etiquette litterale « latest ».
+spec:
+  title: Modele par defaut du portail
+  provider: bedrock
+  model: us.anthropic.claude-opus-4-8
+  auth:
+    strategy: runtime     # identite AWS/IAM ambiante

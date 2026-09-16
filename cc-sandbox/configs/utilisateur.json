@@ -1,0 +1,35 @@
+{
+  "$comment": "A poser dans ~/.claude/settings.json. Contient les cinq cles privilegiees : elles seraient ignorees dans le depot.",
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowRead": [
+        "."
+      ],
+      "denyRead": [
+        "~/"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "api.github.com"
+      ],
+      "strictAllowlist": true,
+      "tlsTerminate": true
+    },
+    "credentials": {
+      "envVars": [
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "mask",
+          "injectHosts": [
+            "api.github.com"
+          ]
+        }
+      ]
+    }
+  }
+}
