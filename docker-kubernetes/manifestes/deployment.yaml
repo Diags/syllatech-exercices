@@ -1,0 +1,57 @@
+# Le trio fondamental : un Deployment, son Service, et sa configuration.
+#
+# Trois choses a regarder, parce que le manifeste « sans sondes » les
+# supprime toutes les trois et demarre quand meme :
+#   - `readinessProbe` : sans elle, le Service envoie du trafic a un pod
+#     qui n'a pas fini de demarrer ;
+#   - `resources` : les `requests` decident du PLACEMENT, les `limits`
+#     decident de la MORT du conteneur ;
+#   - `strategy` : maxSurge 1 / maxUnavailable 0 — on ajoute avant de
+#     retirer, donc le nombre de pods prets ne descend jamais.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobportal
+spec:
+  replicas: 3
+  progressDeadlineSeconds: 30
+  selector:
+    matchLabels: { app: jobportal }
+  strategy:
+    type: RollingUpdate
+    rollingUpdate: { maxSurge: 1, maxUnavailable: 0 }
+  template:
+    metadata:
+      labels: { app: jobportal }
+    spec:
+      containers:
+        - name: app
+          image: registry.exemple.fr/jobportal:1.0
+          ports: [{ containerPort: 8080 }]
+          resources:
+            requests: { cpu: 250m, memory: 512Mi }
+            limits:   { cpu: 500m, memory: 512Mi }
+          readinessProbe:
+            httpGet: { path: /sante, port: 8080 }
+            initialDelaySeconds: 5
+          livenessProbe:
+            httpGet: { path: /sante, port: 8080 }
+            initialDelaySeconds: 20
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobportal
+spec:
+  selector: { app: jobportal }
+  ports: [{ port: 80, targetPort: 8080 }]
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: jobportal-config
+data:
+  application.properties: |
+    server.port=8080
+    spring.application.name=jobportal

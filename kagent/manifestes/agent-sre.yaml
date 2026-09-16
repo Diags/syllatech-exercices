@@ -1,0 +1,31 @@
+# L'agent SRE : il diagnostique, il ne touche a rien.
+#
+# Les quatre outils nommes sont TOUS en lecture. C'est la seule garantie qui
+# tienne : un prompt qui dit « ne supprime jamais rien » n'est pas un
+# controle d'acces, la liste `toolNames` en est un.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-sre
+  namespace: kagent
+spec:
+  type: Declarative
+  description: Diagnostique les incidents du cluster, sans rien modifier
+  declarative:
+    systemMessage: |
+      Tu diagnostiques les incidents du cluster du portail de l'emploi.
+      Verifie TOUJOURS les faits avec tes outils avant de conclure.
+      N'affirme rien que tu n'aies observe.
+    modelConfig: claude-config
+    maxIterations: 8
+    tools:
+      - type: McpServer
+        mcpServer:
+          name: kagent-tool-server
+          kind: RemoteMCPServer
+          toolNames:
+            - k8s_get_resources
+            - k8s_get_pod_logs
+            - k8s_get_events
+            - prometheus_query

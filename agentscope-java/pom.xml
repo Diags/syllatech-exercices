@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Portail de l'emploi — projet du cours « AgentScope Java ».
+
+  ⚠️ LE FRAMEWORK EST LE VRAI. `io.agentscope:agentscope-core` est resolu
+  depuis Maven Central : la boucle ReAct, le catalogue d'outils, le moteur de
+  permissions, le flux d'evenements types et la persistance d'etat sont ceux
+  de la bibliotheque, pas des imitations.
+
+  ⚠️ AUCUNE CLE D'API N'EST REQUISE. Le `Model` est une implantation ecrite
+  ici, deterministe, qui joue un scenario. C'est ce qui permet de MESURER la
+  boucle — nombre d'appels au modele, nombre d'appels d'outils, evenements
+  emis — sans dependre d'un fournisseur ni d'un reseau.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.1</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>fr.portail</groupId>
+  <artifactId>agentscope-portail</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Portail de l'emploi — AgentScope Java</name>
+
+  <properties>
+    <java.version>25</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <agentscope.version>2.0.3</agentscope.version>
+  </properties>
+
+  <dependencies>
+    <!--
+      Le framework du cours. Il apporte Reactor : la boucle de l'agent est
+      reactive de bout en bout, et `call` rend un `Mono<Msg>`.
+    -->
+    <dependency>
+      <groupId>io.agentscope</groupId>
+      <artifactId>agentscope-core</artifactId>
+      <version>${agentscope.version}</version>
+    </dependency>
+
+    <!--
+      Le chapitre 6 expose l'agent en SSE. WebFlux, parce que le flux
+      d'evenements est deja un `Flux` : le mapper sur du Server-Sent Events
+      ne demande alors aucune passerelle.
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-webflux</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.projectreactor</groupId>
+      <artifactId>reactor-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

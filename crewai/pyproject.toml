@@ -1,0 +1,22 @@
+[project]
+name = "jobportal-crewai"
+version = "1.0.0"
+description = "Projet de depart du cours syllatech « CrewAI : les equipes d'agents IA »"
+requires-python = ">=3.11,<3.14"
+dependencies = ["crewai>=1.0,<2", "pydantic>=2.9,<3"]
+
+[project.optional-dependencies]
+dev = ["pytest>=8"]
+
+[tool.pytest.ini_options]
+# CrewAI 1.x emet des DeprecationWarning depuis son propre code : elles
+# noient la sortie sans rien apprendre a personne. On les tait ICI et
+# nulle part ailleurs — taire celles de SON code serait une faute.
+filterwarnings = ["ignore::DeprecationWarning:crewai.*"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["jobportal"]

@@ -1,0 +1,23 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Il nomme un outil que le serveur n'expose pas : `k8s_get_podlogs` (sans
+# le souligne). Le manifeste est valide — `toolNames` est une liste de
+# chaines, l'API ne peut pas savoir ce que le serveur expose. L'outil
+# manque simplement, et le modele s'en passe SANS LE DIRE.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-outil-fantome
+  namespace: kagent
+spec:
+  type: Declarative
+  declarative:
+    systemMessage: Tu diagnostiques les incidents du cluster.
+    modelConfig: claude-config
+    tools:
+      - type: McpServer
+        mcpServer:
+          name: kagent-tool-server
+          kind: RemoteMCPServer
+          toolNames: [k8s_get_resources, k8s_get_podlogs, prometheus_query]

@@ -1,0 +1,7 @@
+{
+  "name": "job-portal",
+  "scripts": {
+    "dev": "vite",
+    "lint": "eslint src --max-warnings 0"
+  }
+}

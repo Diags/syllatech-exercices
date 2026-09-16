@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Le pom.xml du Portail de l'emploi.
+
+  Il n'est pas ici pour etre compile — ce projet n'a pas de JDK, et le
+  README le dit. Il est ici parce que le dev container le DESIGNE : le
+  Dockerfile le copie, et `build.context` decide s'il est visible ou non.
+  Sans lui, la mesure du chapitre 2 n'aurait rien a montrer.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>fr.portail</groupId>
+  <artifactId>portail-emploi</artifactId>
+  <version>1.0.0</version>
+  <properties>
+    <maven.compiler.release>21</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+</project>

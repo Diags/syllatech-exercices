@@ -1,0 +1,3758 @@
+components:
+  schemas:
+    Agent:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/AgentSpec'
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    AgentSource:
+      additionalProperties: false
+      properties:
+        image:
+          type: string
+        protocol:
+          enum:
+          - A2A
+          - HTTP
+          - OpenAIResponses
+          type: string
+        repository:
+          $ref: '#/components/schemas/Repository'
+      type: object
+    AgentSpec:
+      additionalProperties: false
+      properties:
+        compatibleHarnesses:
+          items:
+            $ref: '#/components/schemas/HarnessCompatibility'
+          type:
+          - array
+          - "null"
+        description:
+          type: string
+        iconUrl:
+          type: string
+        instructions:
+          $ref: '#/components/schemas/ResourceRef'
+        mcpServers:
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+          type:
+          - array
+          - "null"
+        modelName:
+          deprecated: true
+          type: string
+        modelProvider:
+          deprecated: true
+          type: string
+        plugins:
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+          type:
+          - array
+          - "null"
+        skills:
+          items:
+            $ref: '#/components/schemas/ResourceRef'
+          type:
+          - array
+          - "null"
+        source:
+          $ref: '#/components/schemas/AgentSource'
+        title:
+          type: string
+      type: object
+    ApplyResult:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        error:
+          type: string
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        status:
+          type: string
+        tag:
+          type: string
+      required:
+      - name
+      - status
+      type: object
+    ApplyResultsResponse:
+      additionalProperties: false
+      properties:
+        results:
+          items:
+            $ref: '#/components/schemas/ApplyResult'
+          type:
+          - array
+          - "null"
+      required:
+      - results
+      type: object
+    CommandEntry:
+      additionalProperties: false
+      properties:
+        allowedTools:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        argumentHint:
+          type: string
+        content:
+          type: string
+        description:
+          type: string
+        model:
+          type: string
+        source:
+          type: string
+      type: object
+    CommandsField:
+      additionalProperties: false
+      properties:
+        Map:
+          additionalProperties:
+            $ref: '#/components/schemas/CommandEntry'
+          type: object
+        Paths:
+          $ref: '#/components/schemas/PathOrPaths'
+      required:
+      - Paths
+      - Map
+      type: object
+    Condition:
+      additionalProperties: false
+      properties:
+        lastTransitionTime:
+          format: date-time
+          type: string
+        message:
+          type: string
+        reason:
+          type: string
+        status:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - status
+      type: object
+    Deployment:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/DeploymentSpec'
+        status:
+          $ref: '#/components/schemas/DeploymentStatus'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    DeploymentHarness:
+      additionalProperties: false
+      properties:
+        permissionMode:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    DeploymentRef:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        namespace:
+          type: string
+      required:
+      - name
+      type: object
+    DeploymentRuntimeStatus:
+      additionalProperties: false
+      properties:
+        endpoint:
+          type: string
+        id:
+          type: string
+        name:
+          type: string
+        resourceId:
+          type: string
+      type: object
+    DeploymentSpec:
+      additionalProperties: false
+      properties:
+        deploymentRefs:
+          items:
+            $ref: '#/components/schemas/DeploymentRef'
+          type:
+          - array
+          - "null"
+        desiredState:
+          type: string
+        env:
+          additionalProperties:
+            type: string
+          type: object
+        harness:
+          $ref: '#/components/schemas/DeploymentHarness'
+        modelRef:
+          $ref: '#/components/schemas/ModelRef'
+        runtimeConfig:
+          additionalProperties: {}
+          type: object
+        runtimeRef:
+          $ref: '#/components/schemas/ResourceRef'
+        targetRef:
+          $ref: '#/components/schemas/ResourceRef'
+      required:
+      - targetRef
+      - runtimeRef
+      type: object
+    DeploymentStatus:
+      additionalProperties: false
+      properties:
+        conditions:
+          items:
+            $ref: '#/components/schemas/Condition'
+          type:
+          - array
+          - "null"
+        runtime:
+          $ref: '#/components/schemas/DeploymentRuntimeStatus'
+      type: object
+    ErrorDetail:
+      additionalProperties: false
+      properties:
+        location:
+          description: Where the error occurred, e.g. 'body.items[3].tags' or 'path.thing-id'
+          type: string
+        message:
+          description: Error message text
+          type: string
+        value:
+          description: The value at the given location
+      type: object
+    ErrorModel:
+      additionalProperties: false
+      properties:
+        detail:
+          description: A human-readable explanation specific to this occurrence of
+            the problem.
+          examples:
+          - Property foo is required but is missing.
+          type: string
+        errors:
+          description: Optional list of individual error details
+          items:
+            $ref: '#/components/schemas/ErrorDetail'
+          type:
+          - array
+          - "null"
+        instance:
+          description: A URI reference that identifies the specific occurrence of
+            the problem.
+          examples:
+          - https://example.com/error-log/abc123
+          format: uri
+          type: string
+        status:
+          description: HTTP status code
+          examples:
+          - 400
+          format: int64
+          type: integer
+        title:
+          description: A short, human-readable summary of the problem type. This value
+            should not change between occurrences of the error.
+          examples:
+          - Bad Request
+          type: string
+        type:
+          default: about:blank
+          description: A URI reference to human-readable documentation for the error.
+          examples:
+          - https://example.com/errors/example
+          format: uri
+          type: string
+      type: object
+    HTTPHeader:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      type: object
+    HarnessCompatibility:
+      additionalProperties: false
+      properties:
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    HealthBody:
+      additionalProperties: false
+      properties:
+        status:
+          description: Health status
+          examples:
+          - ok
+          type: string
+      required:
+      - status
+      type: object
+    HookEntry:
+      additionalProperties: false
+      properties:
+        allowedEnvVars:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        async:
+          type: boolean
+        asyncRewake:
+          type: boolean
+        command:
+          type: string
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+        if:
+          type: string
+        input: {}
+        model:
+          type: string
+        once:
+          type: boolean
+        prompt:
+          type: string
+        server:
+          type: string
+        shell:
+          type: string
+        statusMessage:
+          type: string
+        timeout:
+          format: double
+          type: number
+        tool:
+          type: string
+        type:
+          type: string
+        url:
+          type: string
+      required:
+      - type
+      type: object
+    HookMatcherGroup:
+      additionalProperties: false
+      properties:
+        hooks:
+          items:
+            $ref: '#/components/schemas/HookEntry'
+          type:
+          - array
+          - "null"
+        matcher:
+          type: string
+      required:
+      - hooks
+      type: object
+    HooksField:
+      additionalProperties: false
+      properties:
+        Events:
+          additionalProperties:
+            items:
+              $ref: '#/components/schemas/HookMatcherGroup'
+            type:
+            - array
+            - "null"
+          type: object
+        Path:
+          type: string
+        Raw: {}
+      required:
+      - Path
+      - Events
+      - Raw
+      type: object
+    LSPServerEntry:
+      additionalProperties: false
+      properties:
+        args:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        command:
+          type: string
+        env:
+          additionalProperties:
+            type: string
+          type: object
+        extensionToLanguage:
+          additionalProperties:
+            type: string
+          type: object
+        initializationOptions: {}
+        maxRestarts:
+          format: int64
+          type: integer
+        settings: {}
+        startupTimeout:
+          format: int64
+          type: integer
+        transport:
+          type: string
+        workspaceFolder:
+          type: string
+      required:
+      - command
+      - extensionToLanguage
+      type: object
+    LSPServersField:
+      additionalProperties: false
+      properties:
+        Path:
+          type: string
+        Raw: {}
+        Servers:
+          additionalProperties:
+            $ref: '#/components/schemas/LSPServerEntry'
+          type: object
+      required:
+      - Path
+      - Servers
+      - Raw
+      type: object
+    ListMetadata:
+      additionalProperties: false
+      properties:
+        count:
+          format: int64
+          type: integer
+        nextCursor:
+          type: string
+      required:
+      - count
+      type: object
+    ListOutputAgentBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Agent'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputDeploymentBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Deployment'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputMCPServerBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/MCPServer'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputModelBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Model'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputPluginBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Plugin'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputPromptBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Prompt'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputRuntimeBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Runtime'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputSecretBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Secret'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    ListOutputSkillBody:
+      additionalProperties: false
+      properties:
+        items:
+          items:
+            $ref: '#/components/schemas/Skill'
+          type:
+          - array
+          - "null"
+        nextCursor:
+          type: string
+      required:
+      - items
+      type: object
+    LocalSecretReference:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    MCPArgument:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      type: object
+    MCPKeyValueInput:
+      additionalProperties: false
+      properties:
+        isRequired:
+          type: boolean
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      type: object
+    MCPPackage:
+      additionalProperties: false
+      properties:
+        launch:
+          $ref: '#/components/schemas/MCPPackageLaunch'
+        origin:
+          $ref: '#/components/schemas/MCPPackageOrigin'
+        transport:
+          $ref: '#/components/schemas/MCPTransport'
+      required:
+      - origin
+      - transport
+      type: object
+    MCPPackageLaunch:
+      additionalProperties: false
+      properties:
+        args:
+          items:
+            $ref: '#/components/schemas/MCPArgument'
+          type:
+          - array
+          - "null"
+        command:
+          type: string
+        env:
+          items:
+            $ref: '#/components/schemas/MCPKeyValueInput'
+          type:
+          - array
+          - "null"
+      type: object
+    MCPPackageOrigin:
+      additionalProperties: false
+      properties:
+        identifier:
+          type: string
+        npm:
+          $ref: '#/components/schemas/MCPPackageOriginNPM'
+        oci:
+          $ref: '#/components/schemas/MCPPackageOriginOCI'
+        pypi:
+          $ref: '#/components/schemas/MCPPackageOriginPyPI'
+        type:
+          type: string
+      required:
+      - type
+      - identifier
+      type: object
+    MCPPackageOriginNPM:
+      additionalProperties: false
+      properties:
+        mirror:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      type: object
+    MCPPackageOriginOCI:
+      additionalProperties: false
+      properties:
+        serverName:
+          type: string
+      required:
+      - serverName
+      type: object
+    MCPPackageOriginPyPI:
+      additionalProperties: false
+      properties:
+        mirror:
+          type: string
+        serverName:
+          type: string
+        version:
+          type: string
+      required:
+      - version
+      - serverName
+      type: object
+    MCPRemote:
+      additionalProperties: false
+      properties:
+        headers:
+          items:
+            $ref: '#/components/schemas/HTTPHeader'
+          type:
+          - array
+          - "null"
+        type:
+          type: string
+        url:
+          type: string
+      required:
+      - type
+      - url
+      type: object
+    MCPServer:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/MCPServerSpec'
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    MCPServerEntry:
+      additionalProperties: false
+      properties:
+        args:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        command:
+          type: string
+        env:
+          additionalProperties:
+            type: string
+          type: object
+        headers:
+          additionalProperties:
+            type: string
+          type: object
+        headersHelper:
+          type: string
+        oauth:
+          $ref: '#/components/schemas/MCPServerOAuth'
+        type:
+          type: string
+        url:
+          type: string
+      type: object
+    MCPServerOAuth:
+      additionalProperties: false
+      properties:
+        authServerMetadataUrl:
+          type: string
+        callbackPort:
+          format: int64
+          type: integer
+        clientId:
+          type: string
+        scopes:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+      type: object
+    MCPServerSource:
+      additionalProperties: false
+      properties:
+        package:
+          $ref: '#/components/schemas/MCPPackage'
+        repository:
+          $ref: '#/components/schemas/Repository'
+      type: object
+    MCPServerSpec:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        iconUrl:
+          type: string
+        remote:
+          $ref: '#/components/schemas/MCPRemote'
+        source:
+          $ref: '#/components/schemas/MCPServerSource'
+        title:
+          type: string
+      type: object
+    MCPServersField:
+      additionalProperties: false
+      properties:
+        Path:
+          type: string
+        Raw: {}
+        Servers:
+          additionalProperties:
+            $ref: '#/components/schemas/MCPServerEntry'
+          type: object
+      required:
+      - Path
+      - Servers
+      - Raw
+      type: object
+    MCPTransport:
+      additionalProperties: false
+      properties:
+        path:
+          type: string
+        port:
+          format: int32
+          minimum: 0
+          type: integer
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    MarketplaceResponse:
+      additionalProperties: false
+      properties:
+        $schema:
+          type: string
+        name:
+          type: string
+        owner:
+          $ref: '#/components/schemas/Owner'
+        plugins:
+          items:
+            $ref: '#/components/schemas/PluginEntry'
+          type: array
+      required:
+      - name
+      - owner
+      - plugins
+      type: object
+    Model:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/ModelSpec'
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    ModelAuthConfig:
+      additionalProperties: false
+      properties:
+        secretRef:
+          $ref: '#/components/schemas/SecretKeyRef'
+        strategy:
+          enum:
+          - runtime
+          - secretRef
+          - passthrough
+          type: string
+      required:
+      - strategy
+      type: object
+    ModelEndpointConfig:
+      additionalProperties: false
+      properties:
+        baseUrl:
+          type: string
+        region:
+          type: string
+        tls:
+          $ref: '#/components/schemas/ModelTLSConfig'
+      type: object
+    ModelRef:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        namespace:
+          type: string
+        tag:
+          type: string
+      required:
+      - name
+      type: object
+    ModelSpec:
+      additionalProperties: false
+      properties:
+        auth:
+          $ref: '#/components/schemas/ModelAuthConfig'
+        description:
+          type: string
+        endpoint:
+          $ref: '#/components/schemas/ModelEndpointConfig'
+        iconUrl:
+          type: string
+        model:
+          type: string
+        provider:
+          enum:
+          - bedrock
+          type: string
+        title:
+          type: string
+      required:
+      - provider
+      - model
+      type: object
+    ModelTLSConfig:
+      additionalProperties: false
+      properties:
+        caCertSecretRef:
+          $ref: '#/components/schemas/SecretKeyRef'
+        disableVerify:
+          type: boolean
+      type: object
+    MonitorEntry:
+      additionalProperties: false
+      properties:
+        command:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        when:
+          type: string
+      required:
+      - name
+      - command
+      - description
+      type: object
+    MonitorsField:
+      additionalProperties: false
+      properties:
+        Entries:
+          items:
+            $ref: '#/components/schemas/MonitorEntry'
+          type:
+          - array
+          - "null"
+        Path:
+          type: string
+      required:
+      - Path
+      - Entries
+      type: object
+    ObjectMeta:
+      additionalProperties: false
+      properties:
+        annotations:
+          additionalProperties:
+            type: string
+          type: object
+        createdAt:
+          format: date-time
+          type: string
+        deletionTimestamp:
+          format: date-time
+          type: string
+        labels:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        namespace:
+          type: string
+        tag:
+          type: string
+        uid:
+          type: string
+        updatedAt:
+          format: date-time
+          type: string
+      required:
+      - name
+      type: object
+    OfficialMeta:
+      additionalProperties: false
+      properties:
+        isLatest:
+          type: boolean
+        publishedAt:
+          type: string
+        status:
+          type: string
+        statusChangedAt:
+          type: string
+        updatedAt:
+          type: string
+      required:
+      - isLatest
+      type: object
+    Owner:
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    PathOrPaths:
+      additionalProperties: false
+      properties:
+        Values:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        WasArray:
+          type: boolean
+      required:
+      - Values
+      - WasArray
+      type: object
+    PingBody:
+      additionalProperties: false
+      properties:
+        pong:
+          description: Ping response
+          examples:
+          - true
+          type: boolean
+      required:
+      - pong
+      type: object
+    Plugin:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/PluginSpec'
+        status:
+          $ref: '#/components/schemas/PluginStatus'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    PluginAuthor:
+      additionalProperties: false
+      properties:
+        email:
+          type: string
+        name:
+          type: string
+        url:
+          type: string
+      required:
+      - name
+      type: object
+    PluginChannel:
+      additionalProperties: false
+      properties:
+        displayName:
+          type: string
+        server:
+          type: string
+        userConfig:
+          additionalProperties:
+            $ref: '#/components/schemas/PluginUserConfigField'
+          type: object
+      required:
+      - server
+      type: object
+    PluginDependency:
+      additionalProperties: false
+      properties:
+        marketplace:
+          type: string
+        name:
+          type: string
+        version:
+          type: string
+      type: object
+    PluginEntry:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+        source: {}
+        version:
+          type: string
+      required:
+      - name
+      - source
+      type: object
+    PluginExperimental:
+      additionalProperties: false
+      properties:
+        monitors:
+          $ref: '#/components/schemas/MonitorsField'
+        themes:
+          $ref: '#/components/schemas/PathOrPaths'
+      type: object
+    PluginHook:
+      additionalProperties: false
+      properties:
+        event:
+          type: string
+        type:
+          type: string
+      required:
+      - event
+      type: object
+    PluginInventory:
+      additionalProperties: false
+      properties:
+        agents:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        commands:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        executables:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        hooks:
+          items:
+            $ref: '#/components/schemas/PluginHook'
+          type:
+          - array
+          - "null"
+        mcpServers:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        skills:
+          items:
+            $ref: '#/components/schemas/PluginSkill'
+          type:
+          - array
+          - "null"
+      type: object
+    PluginManifest:
+      additionalProperties: false
+      properties:
+        $schema:
+          type: string
+        agents:
+          $ref: '#/components/schemas/PathOrPaths'
+        author:
+          $ref: '#/components/schemas/PluginAuthor'
+        channels:
+          items:
+            $ref: '#/components/schemas/PluginChannel'
+          type:
+          - array
+          - "null"
+        commands:
+          $ref: '#/components/schemas/CommandsField'
+        defaultEnabled:
+          type: boolean
+        dependencies:
+          items:
+            $ref: '#/components/schemas/PluginDependency'
+          type:
+          - array
+          - "null"
+        description:
+          type: string
+        displayName:
+          type: string
+        experimental:
+          $ref: '#/components/schemas/PluginExperimental'
+        homepage:
+          type: string
+        hooks:
+          $ref: '#/components/schemas/HooksField'
+        keywords:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        license:
+          type: string
+        lspServers:
+          $ref: '#/components/schemas/LSPServersField'
+        mcpServers:
+          $ref: '#/components/schemas/MCPServersField'
+        monitors:
+          $ref: '#/components/schemas/MonitorsField'
+        name:
+          type: string
+        outputStyles:
+          $ref: '#/components/schemas/PathOrPaths'
+        repository:
+          type: string
+        settings: {}
+        skills:
+          $ref: '#/components/schemas/PathOrPaths'
+        themes:
+          $ref: '#/components/schemas/PathOrPaths'
+        userConfig:
+          additionalProperties:
+            $ref: '#/components/schemas/PluginUserConfigField'
+          type: object
+        version:
+          type: string
+      required:
+      - name
+      type: object
+    PluginResolvedSource:
+      additionalProperties: false
+      properties:
+        commit:
+          type: string
+        digest:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    PluginSkill:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        name:
+          type: string
+      required:
+      - name
+      type: object
+    PluginSource:
+      additionalProperties: false
+      properties:
+        git:
+          $ref: '#/components/schemas/PluginSourceGit'
+        oci:
+          $ref: '#/components/schemas/PluginSourceOCI'
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    PluginSourceGit:
+      additionalProperties: false
+      properties:
+        repository:
+          $ref: '#/components/schemas/Repository'
+      required:
+      - repository
+      type: object
+    PluginSourceOCI:
+      additionalProperties: false
+      properties:
+        reference:
+          type: string
+      required:
+      - reference
+      type: object
+    PluginSpec:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        harnesses:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+        iconUrl:
+          type: string
+        source:
+          $ref: '#/components/schemas/PluginSource'
+        title:
+          type: string
+      type: object
+    PluginStatus:
+      additionalProperties: false
+      properties:
+        conditions:
+          items:
+            $ref: '#/components/schemas/Condition'
+          type:
+          - array
+          - "null"
+        inventory:
+          $ref: '#/components/schemas/PluginInventory'
+        manifest:
+          $ref: '#/components/schemas/PluginManifest'
+        resolvedSource:
+          $ref: '#/components/schemas/PluginResolvedSource'
+      type: object
+    PluginUserConfigField:
+      additionalProperties: false
+      properties:
+        default: {}
+        description:
+          type: string
+        max:
+          format: double
+          type: number
+        min:
+          format: double
+          type: number
+        multiple:
+          type: boolean
+        required:
+          type: boolean
+        sensitive:
+          type: boolean
+        title:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      - title
+      - description
+      type: object
+    Prompt:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/PromptSpec'
+        status:
+          $ref: '#/components/schemas/Status'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    PromptSpec:
+      additionalProperties: false
+      properties:
+        content:
+          type: string
+        description:
+          type: string
+        iconUrl:
+          type: string
+      type: object
+    Repository:
+      additionalProperties: false
+      properties:
+        branch:
+          type: string
+        commit:
+          type: string
+        credentialsRef:
+          $ref: '#/components/schemas/LocalSecretReference'
+        subfolder:
+          type: string
+        url:
+          type: string
+      type: object
+    ResourceRef:
+      additionalProperties: false
+      properties:
+        kind:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+        tag:
+          type: string
+      required:
+      - kind
+      - name
+      type: object
+    ResponseMeta:
+      additionalProperties: false
+      properties:
+        io.modelcontextprotocol.registry/official:
+          $ref: '#/components/schemas/OfficialMeta'
+      type: object
+    Runtime:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/RuntimeSpec'
+        status:
+          $ref: '#/components/schemas/RuntimeStatus'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    RuntimeSpec:
+      additionalProperties: false
+      properties:
+        config:
+          additionalProperties: {}
+          type: object
+        telemetryEndpoint:
+          type: string
+        type:
+          type: string
+      required:
+      - type
+      type: object
+    RuntimeStatus:
+      additionalProperties: false
+      properties:
+        conditions:
+          items:
+            $ref: '#/components/schemas/Condition'
+          type:
+          - array
+          - "null"
+      type: object
+    Secret:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/SecretSpec'
+        status:
+          $ref: '#/components/schemas/SecretStatus'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    SecretKeyRef:
+      additionalProperties: false
+      properties:
+        key:
+          type: string
+        name:
+          type: string
+        namespace:
+          type: string
+      required:
+      - name
+      type: object
+    SecretSpec:
+      additionalProperties: false
+      properties:
+        data:
+          additionalProperties:
+            type: string
+          type: object
+        immutable:
+          type: boolean
+        stringData:
+          additionalProperties:
+            type: string
+          type: object
+        type:
+          type: string
+      type: object
+    SecretStatus:
+      additionalProperties: false
+      properties:
+        dataKeys:
+          items:
+            type: string
+          type:
+          - array
+          - "null"
+      type: object
+    ServerArgument:
+      additionalProperties: false
+      properties:
+        name:
+          type: string
+        type:
+          type: string
+        value:
+          type: string
+      required:
+      - type
+      type: object
+    ServerDetail:
+      additionalProperties: false
+      properties:
+        $schema:
+          type: string
+        description:
+          type: string
+        name:
+          type: string
+        packages:
+          items:
+            $ref: '#/components/schemas/ServerPackage'
+          type:
+          - array
+          - "null"
+        remotes:
+          items:
+            $ref: '#/components/schemas/ServerTransport'
+          type:
+          - array
+          - "null"
+        repository:
+          $ref: '#/components/schemas/ServerRepository'
+        title:
+          type: string
+        version:
+          type: string
+        websiteUrl:
+          type: string
+      required:
+      - name
+      - description
+      - version
+      type: object
+    ServerInput:
+      additionalProperties: false
+      properties:
+        isRequired:
+          type: boolean
+        name:
+          type: string
+        value:
+          type: string
+      required:
+      - name
+      type: object
+    ServerListResponse:
+      additionalProperties: false
+      properties:
+        metadata:
+          $ref: '#/components/schemas/ListMetadata'
+        servers:
+          items:
+            $ref: '#/components/schemas/ServerResponse'
+          type:
+          - array
+          - "null"
+      required:
+      - servers
+      - metadata
+      type: object
+    ServerPackage:
+      additionalProperties: false
+      properties:
+        environmentVariables:
+          items:
+            $ref: '#/components/schemas/ServerInput'
+          type:
+          - array
+          - "null"
+        fileSha256:
+          type: string
+        identifier:
+          type: string
+        packageArguments:
+          items:
+            $ref: '#/components/schemas/ServerArgument'
+          type:
+          - array
+          - "null"
+        registryBaseUrl:
+          type: string
+        registryType:
+          type: string
+        runtimeArguments:
+          items:
+            $ref: '#/components/schemas/ServerArgument'
+          type:
+          - array
+          - "null"
+        runtimeHint:
+          type: string
+        transport:
+          $ref: '#/components/schemas/ServerTransport'
+        version:
+          type: string
+      required:
+      - registryType
+      - identifier
+      - version
+      - transport
+      type: object
+    ServerRepository:
+      additionalProperties: false
+      properties:
+        id:
+          type: string
+        source:
+          type: string
+        subfolder:
+          type: string
+        url:
+          type: string
+      required:
+      - url
+      type: object
+    ServerResponse:
+      additionalProperties: false
+      properties:
+        _meta:
+          $ref: '#/components/schemas/ResponseMeta'
+        server:
+          $ref: '#/components/schemas/ServerDetail'
+      required:
+      - server
+      type: object
+    ServerTransport:
+      additionalProperties: false
+      properties:
+        headers:
+          items:
+            $ref: '#/components/schemas/ServerInput'
+          type:
+          - array
+          - "null"
+        type:
+          type: string
+        url:
+          type: string
+      required:
+      - type
+      type: object
+    Skill:
+      additionalProperties: false
+      properties:
+        apiVersion:
+          type: string
+        kind:
+          type: string
+        metadata:
+          $ref: '#/components/schemas/ObjectMeta'
+        spec:
+          $ref: '#/components/schemas/SkillSpec'
+        status:
+          $ref: '#/components/schemas/SkillStatus'
+      required:
+      - metadata
+      - spec
+      - apiVersion
+      - kind
+      type: object
+    SkillResolvedSource:
+      additionalProperties: false
+      properties:
+        commit:
+          type: string
+      type: object
+    SkillSource:
+      additionalProperties: false
+      properties:
+        repository:
+          $ref: '#/components/schemas/Repository'
+      type: object
+    SkillSpec:
+      additionalProperties: false
+      properties:
+        description:
+          type: string
+        iconUrl:
+          type: string
+        source:
+          $ref: '#/components/schemas/SkillSource'
+        title:
+          type: string
+      type: object
+    SkillStatus:
+      additionalProperties: false
+      properties:
+        conditions:
+          items:
+            $ref: '#/components/schemas/Condition'
+          type:
+          - array
+          - "null"
+        resolvedSource:
+          $ref: '#/components/schemas/SkillResolvedSource'
+      type: object
+    Status:
+      additionalProperties: false
+      properties:
+        conditions:
+          items:
+            $ref: '#/components/schemas/Condition'
+          type:
+          - array
+          - "null"
+      type: object
+    VersionBody:
+      additionalProperties: false
+      properties:
+        build_time:
+          description: Build timestamp
+          examples:
+          - "2025-10-14T12:00:00Z"
+          type: string
+        git_commit:
+          description: Git commit SHA
+          examples:
+          - abc123d
+          type: string
+        version:
+          description: Application version
+          examples:
+          - v1.0.0
+          type: string
+      required:
+      - version
+      - git_commit
+      - build_time
+      type: object
+info:
+  description: AgentRegistry API for managing MCP servers, agents, skills, and deployments.
+  title: AgentRegistry
+  version: dev
+openapi: 3.1.0
+paths:
+  /plugin-marketplace/marketplace.json:
+    get:
+      description: Read-only listing of resolved plugins in the Claude Code marketplace.json
+        format.
+      operationId: plugin-marketplace-get
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MarketplaceResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the plugin marketplace (Claude Code marketplace.json compatibility)
+      tags:
+      - plugins
+  /v0.1/servers:
+    get:
+      description: Read-only listing of registered MCP servers in the official MCP
+        Registry server.json format.
+      operationId: mcp-registry-list-servers
+      parameters:
+      - description: Opaque pagination cursor from a prior response.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor from a prior response.
+          type: string
+      - description: Max servers to return (capped at 100).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          description: Max servers to return (capped at 100).
+          format: int64
+          type: integer
+      - description: Substring match on the server name.
+        explode: false
+        in: query
+        name: search
+        schema:
+          description: Substring match on the server name.
+          type: string
+      - description: RFC3339 timestamp; only servers updated at or after this time.
+        explode: false
+        in: query
+        name: updated_since
+        schema:
+          description: RFC3339 timestamp; only servers updated at or after this time.
+          type: string
+      - description: '''latest'' (default) or a specific version tag.'
+        explode: false
+        in: query
+        name: version
+        schema:
+          description: '''latest'' (default) or a specific version tag.'
+          type: string
+      - description: Include servers pending deletion.
+        explode: false
+        in: query
+        name: include_deleted
+        schema:
+          description: Include servers pending deletion.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerListResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List MCP servers (MCP Registry v0.1 compatibility)
+      tags:
+      - servers
+  /v0.1/servers/{serverName}/versions:
+    get:
+      operationId: mcp-registry-list-server-versions
+      parameters:
+      - description: URL-encoded '<namespace>/<name>' server name.
+        in: path
+        name: serverName
+        required: true
+        schema:
+          description: URL-encoded '<namespace>/<name>' server name.
+          type: string
+      - explode: false
+        in: query
+        name: cursor
+        schema:
+          type: string
+      - explode: false
+        in: query
+        name: limit
+        schema:
+          format: int64
+          type: integer
+      - explode: false
+        in: query
+        name: include_deleted
+        schema:
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerListResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List versions of an MCP server (MCP Registry v0.1 compatibility)
+      tags:
+      - servers
+  /v0.1/servers/{serverName}/versions/{version}:
+    get:
+      operationId: mcp-registry-get-server-version
+      parameters:
+      - description: URL-encoded '<namespace>/<name>' server name.
+        in: path
+        name: serverName
+        required: true
+        schema:
+          description: URL-encoded '<namespace>/<name>' server name.
+          type: string
+      - description: A specific version tag, or 'latest'.
+        in: path
+        name: version
+        required: true
+        schema:
+          description: A specific version tag, or 'latest'.
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ServerResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a single MCP server version (MCP Registry v0.1 compatibility)
+      tags:
+      - servers
+  /v0/agents:
+    get:
+      operationId: list-agents
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputAgentBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Agent (scoped by ?namespace)
+  /v0/agents/{name}:
+    get:
+      operationId: get-latest-agent
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Agent
+  /v0/agents/{name}/{tag}:
+    delete:
+      operationId: delete-agent
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Agent (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-agent
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Agent'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a Agent by name and tag
+  /v0/agents/{name}/tags:
+    get:
+      operationId: list-tags-agent
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputAgentBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a Agent
+  /v0/apply:
+    delete:
+      operationId: delete-batch
+      parameters:
+      - description: Run validation without mutating the store. Defaults to false.
+        explode: false
+        in: query
+        name: dryRun
+        schema:
+          description: Run validation without mutating the store. Defaults to false.
+          type: boolean
+      requestBody:
+        content:
+          application/yaml:
+            schema:
+              contentMediaType: application/octet-stream
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplyResultsResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Delete v1alpha1 resources identified by a multi-doc YAML stream
+    post:
+      operationId: apply-batch
+      parameters:
+      - description: Run validation without mutating the store. Defaults to false.
+        explode: false
+        in: query
+        name: dryRun
+        schema:
+          description: Run validation without mutating the store. Defaults to false.
+          type: boolean
+      requestBody:
+        content:
+          application/yaml:
+            schema:
+              contentMediaType: application/octet-stream
+              format: binary
+              type: string
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApplyResultsResponse'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Apply a multi-doc YAML stream of v1alpha1 resources
+  /v0/deployments:
+    get:
+      operationId: list-deployments
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      - description: 'Deployment origin filter: managed or discovered.'
+        explode: false
+        in: query
+        name: origin
+        schema:
+          description: 'Deployment origin filter: managed or discovered.'
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputDeploymentBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Deployment (scoped by ?namespace)
+  /v0/deployments/{name}:
+    delete:
+      operationId: delete-deployment
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Deployment (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-latest-deployment
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Deployment
+    put:
+      operationId: apply-deployment
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Deployment'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deployment'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Apply a Deployment (idempotent upsert)
+  /v0/health:
+    get:
+      description: Check the health status of the API
+      operationId: get-health-v0
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Health check
+      tags:
+      - health
+  /v0/mcpservers:
+    get:
+      operationId: list-mcpservers
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputMCPServerBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List MCPServer (scoped by ?namespace)
+  /v0/mcpservers/{name}:
+    get:
+      operationId: get-latest-mcpserver
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPServer'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest MCPServer
+  /v0/mcpservers/{name}/{tag}:
+    delete:
+      operationId: delete-mcpserver
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a MCPServer (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-mcpserver
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MCPServer'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a MCPServer by name and tag
+  /v0/mcpservers/{name}/tags:
+    get:
+      operationId: list-tags-mcpserver
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputMCPServerBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a MCPServer
+  /v0/models:
+    get:
+      operationId: list-models
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputModelBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Model (scoped by ?namespace)
+  /v0/models/{name}:
+    get:
+      operationId: get-latest-model
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Model
+  /v0/models/{name}/{tag}:
+    delete:
+      operationId: delete-model
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Model (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-model
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Model'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a Model by name and tag
+  /v0/models/{name}/tags:
+    get:
+      operationId: list-tags-model
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputModelBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a Model
+  /v0/ping:
+    get:
+      description: Simple ping endpoint
+      operationId: ping-v0
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Ping
+      tags:
+      - ping
+  /v0/plugins:
+    get:
+      operationId: list-plugins
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputPluginBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Plugin (scoped by ?namespace)
+  /v0/plugins/{name}:
+    get:
+      operationId: get-latest-plugin
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plugin'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Plugin
+  /v0/plugins/{name}/{tag}:
+    delete:
+      operationId: delete-plugin
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Plugin (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-plugin
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Plugin'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a Plugin by name and tag
+  /v0/plugins/{name}/tags:
+    get:
+      operationId: list-tags-plugin
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputPluginBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a Plugin
+  /v0/prompts:
+    get:
+      operationId: list-prompts
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputPromptBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Prompt (scoped by ?namespace)
+  /v0/prompts/{name}:
+    get:
+      operationId: get-latest-prompt
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompt'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Prompt
+  /v0/prompts/{name}/{tag}:
+    delete:
+      operationId: delete-prompt
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Prompt (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-prompt
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Prompt'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a Prompt by name and tag
+  /v0/prompts/{name}/tags:
+    get:
+      operationId: list-tags-prompt
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputPromptBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a Prompt
+  /v0/runtimes:
+    get:
+      operationId: list-runtimes
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputRuntimeBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Runtime (scoped by ?namespace)
+  /v0/runtimes/{name}:
+    delete:
+      operationId: delete-runtime
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Runtime (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-latest-runtime
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runtime'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Runtime
+    put:
+      operationId: apply-runtime
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Runtime'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Runtime'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Apply a Runtime (idempotent upsert)
+  /v0/secrets:
+    get:
+      operationId: list-secrets
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputSecretBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Secret (scoped by ?namespace)
+  /v0/secrets/{name}:
+    delete:
+      operationId: delete-secret
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Secret (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-latest-secret
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Secret'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Secret
+    put:
+      operationId: apply-secret
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Secret'
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Secret'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Apply a Secret (idempotent upsert)
+  /v0/skills:
+    get:
+      operationId: list-skills
+      parameters:
+      - description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (defaults to 'default'; 'all' lists across all namespaces).
+          type: string
+      - description: Max items to return (default 50).
+        explode: false
+        in: query
+        name: limit
+        schema:
+          default: 50
+          description: Max items to return (default 50).
+          format: int64
+          type: integer
+      - description: Opaque pagination cursor.
+        explode: false
+        in: query
+        name: cursor
+        schema:
+          description: Opaque pagination cursor.
+          type: string
+      - description: 'Label selector: key=value,key2=value2.'
+        explode: false
+        in: query
+        name: labels
+        schema:
+          description: 'Label selector: key=value,key2=value2.'
+          type: string
+      - description: Restrict the result set to one tag value (tagged artifact kinds
+          only).
+        explode: false
+        in: query
+        name: tag
+        schema:
+          description: Restrict the result set to one tag value (tagged artifact kinds
+            only).
+          type: string
+      - description: Only return the literal latest tag per (namespace, name). Equivalent
+          to tag=latest for tagged kinds.
+        explode: false
+        in: query
+        name: latestOnly
+        schema:
+          description: Only return the literal latest tag per (namespace, name). Equivalent
+            to tag=latest for tagged kinds.
+          type: boolean
+      - description: Include rows with a deletionTimestamp.
+        explode: false
+        in: query
+        name: includeTerminating
+        schema:
+          description: Include rows with a deletionTimestamp.
+          type: boolean
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputSkillBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List Skill (scoped by ?namespace)
+  /v0/skills/{name}:
+    get:
+      operationId: get-latest-skill
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get the latest Skill
+  /v0/skills/{name}/{tag}:
+    delete:
+      operationId: delete-skill
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "204":
+          description: No Content
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: 'Delete a Skill (soft-delete: sets deletionTimestamp)'
+    get:
+      operationId: get-skill
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      - in: path
+        name: tag
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Skill'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get a Skill by name and tag
+  /v0/skills/{name}/tags:
+    get:
+      operationId: list-tags-skill
+      parameters:
+      - description: Namespace (internal; defaults to 'default').
+        explode: false
+        in: query
+        name: namespace
+        schema:
+          description: Namespace (internal; defaults to 'default').
+          type: string
+      - in: path
+        name: name
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListOutputSkillBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: List all tags of a Skill
+  /v0/version:
+    get:
+      description: Returns the version, git commit, and build time of the registry
+        application
+      operationId: get-version-v0
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/VersionBody'
+          description: OK
+        default:
+          content:
+            application/problem+json:
+              schema:
+                $ref: '#/components/schemas/ErrorModel'
+          description: Error
+      summary: Get version information
+      tags:
+      - version

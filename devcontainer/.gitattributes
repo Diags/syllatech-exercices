@@ -1,0 +1,6 @@
+# Un script shell en CRLF ne demarre pas sous Linux : le `\r` fait partie du
+# nom de l'interprete. Le dev container tourne sous Linux — ces fichiers
+# restent donc en LF, quoi que fasse core.autocrlf sur le poste.
+*.sh        text eol=lf
+Dockerfile  text eol=lf
+*.yaml      text eol=lf

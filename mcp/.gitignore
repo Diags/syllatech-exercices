@@ -1,0 +1,7 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# uv.lock EST versionne : un projet pedagogique doit livrer les versions
+# exactes avec lesquelles il a ete verifie, sinon « ca marchait hier ».

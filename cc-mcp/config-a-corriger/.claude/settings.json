@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__jobportal__supprimer_ofre"
+    ],
+    "allow": [
+      "mcp__*",
+      "mcp__jobportal__.*"
+    ]
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "_pourquoi": "La meme intention, exprimee correctement : une seule declaration, des actions nommees, une ressource bornee.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LireLesCandidatures",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket",
+        "s3:GetObjectVersion"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cv-candidats",
+        "arn:aws:s3:::cv-candidats/*"
+      ]
+    }
+  ]
+}

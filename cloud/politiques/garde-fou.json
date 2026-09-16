@@ -1,0 +1,21 @@
+{
+  "_pourquoi": "Le garde-fou de l'organisation : un Deny explicite sur la suppression des journaux et des sauvegardes. Il l'emporte sur toute autorisation, de n'importe quelle politique — c'est la seule regle qu'aucun ticket ne peut contourner.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ProtegerLesJournaux",
+      "Effect": "Deny",
+      "Action": [
+        "s3:DeleteObject",
+        "s3:DeleteBucket",
+        "s3:PutBucketPolicy"
+      ],
+      "Resource": [
+        "arn:aws:s3:::journaux-audit",
+        "arn:aws:s3:::journaux-audit/*",
+        "arn:aws:s3:::sauvegardes",
+        "arn:aws:s3:::sauvegardes/*"
+      ]
+    }
+  ]
+}

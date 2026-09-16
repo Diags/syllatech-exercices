@@ -1,0 +1,10 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# uv.lock EST versionne : voir exemples/README.md
+
+# Ecrit par l evasion « ecriture sur le disque de l hote » : c est sa preuve,
+# pas un fichier du projet.
+temoin-evasion.txt

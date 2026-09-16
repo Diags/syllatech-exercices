@@ -1,0 +1,9 @@
+// Le schema publie declare `allowComments: true` — mais
+// `allowTrailingCommas: false`. La virgule apres la derniere propriete
+// n'est donc PAS autorisee. Beaucoup d'editeurs la tolerent quand meme,
+// et c'est ce qui la rend dangereuse : le fichier s'ouvre chez vous.
+{
+  "name": "Une virgule de trop",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "remoteUser": "vscode",
+}

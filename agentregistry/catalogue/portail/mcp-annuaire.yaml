@@ -1,0 +1,22 @@
+# Un serveur MCP qu'on ne deploie PAS : il tourne deja, ailleurs.
+#
+# `spec.remote` et `spec.source` s'excluent — le registre catalogue celui-ci
+# sans jamais le lancer. C'est aussi le seul endroit du schema ou une
+# reference vers un secret n'existe pas : `headers[].value` est une chaine,
+# pas un renvoi. Le chapitre 5 en tire la consequence.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: annuaire-pro
+  tag: stable
+  labels:
+    portail.emploi/capacite: verification
+    portail.emploi/donnees: candidats
+spec:
+  title: Annuaire professionnel
+  description: "Verification d'un parcours declare aupres du prestataire"
+  remote:
+    # Les types d'un remote ne sont PAS ceux d'un paquet : ici
+    # « sse | streamable-http », la-bas « stdio | http ».
+    type: streamable-http
+    url: https://annuaire.exemple.test/mcp
