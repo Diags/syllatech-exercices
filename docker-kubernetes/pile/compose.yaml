@@ -1,0 +1,46 @@
+# La pile du portail de l'emploi — la version qu'on garde.
+#
+# Le seul ecart avec `compose.naif.yaml` tient dans le `depends_on` de
+# `app` : forme longue, avec `condition: service_healthy`. Le chapitre 3
+# date les evenements des deux et compte les connexions refusees.
+
+name: jobportal
+
+services:
+
+  app:
+    build: ../contexte
+    ports: ["8080:8080"]
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/${DB_NOM}
+      DB_PASSWORD: ${DB_PASSWORD}
+      SPRING_PROFILES_ACTIVE: ${PROFIL:-dev}
+    depends_on:
+      db:
+        condition: service_healthy
+    # Entrees declarees du modele — voir l'en-tete de jobportal/compose.py.
+    x-simulation: { demarre_en: 6.5, se_connecte_apres: 3.8 }
+
+  db:
+    image: postgres:16
+    # ⚠️ Pas de `ports:` : la base n'est PAS publiee sur l'hote. Elle reste
+    # joignable par `db:5432` depuis le reseau du projet — c'est exactement
+    # ce qu'on veut, et c'est ce qu'on oublie de faire en production.
+    expose: [5432]
+    environment:
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NOM}
+    volumes: ["pgdata:/var/lib/postgresql/data"]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres"]
+      interval: 2s
+      retries: 5
+    x-simulation: { demarre_en: 0.4, accepte_apres: 9.0 }
+
+  cache:
+    image: valkey:8
+    expose: [6379]
+    x-simulation: { demarre_en: 0.3, accepte_apres: 0.5 }
+
+volumes:
+  pgdata:

@@ -1,0 +1,8 @@
+// Le contexte de construction pointe le dossier .devcontainer, pas la
+// racine. Le schema l'accepte : c'est une chaine, et elle est bien formee.
+// Ce qui manque, c'est le pom.xml — et le message de Docker parlera de
+// fichiers introuvables, pas de contexte.
+{
+  "name": "Contexte trop court",
+  "build": { "dockerfile": "Dockerfile", "context": "." }
+}

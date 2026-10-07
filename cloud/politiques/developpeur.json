@@ -1,0 +1,33 @@
+{
+  "_pourquoi": "Ce que porte reellement un developpeur du portail : lire les CV, ecrire dans son propre prefixe, et rien sur la production.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LireLesCv",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cv-candidats",
+        "arn:aws:s3:::cv-candidats/*"
+      ]
+    },
+    {
+      "Sid": "EcrireDansSonBac",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::bac-a-sable/*"
+    },
+    {
+      "Sid": "JamaisLaProduction",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": [
+        "arn:aws:rds:*:*:db:jobportal-prod",
+        "arn:aws:s3:::journaux-audit/*"
+      ]
+    }
+  ]
+}

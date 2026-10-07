@@ -1,0 +1,114 @@
+{
+ "avant": {
+  "champs_justes": 36,
+  "champs_total": 60,
+  "json_invalides": 0,
+  "secondes_par_annonce": 4.85,
+  "detail": [
+   {
+    "reponse": "{\n  \"ville\": \"Lyon\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybrid\",\n  \"salaire_min\": 52000,\n  \"salaire_max\": 62000\n}",
+    "justes": 4
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Paris\",\n  \"contrat\": \"Téletravail\",\n  \"mode\": \"Hybrid\",\n  \"salaire_min\": 55,\n  \"salaire_max\": 68\n}",
+    "justes": 1
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Lyon\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybrid\",\n  \"salaire_min\": 58,\n  \"salaire_max\": 72\n}",
+    "justes": 2
+   },
+   {
+    "reponse": "```json\n{\n  \"ville\": \"Nantes\",\n  \"contrat\": \"Hybride\",\n  \"mode\": \"À distance\",\n  \"salaire_min\": 3000,\n  \"salaire_max\": 6000\n}\n```",
+    "justes": 2
+   },
+   {
+    "reponse": "```json\n{\n  \"ville\": \"Grenoble\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybride\",\n  \"salaire_min\": 45000,\n  \"salaire_max\": 54000\n}\n```",
+    "justes": 4
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Lyons\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybride\",\n  \"salaire_min\": 48,\n  \"salaire_max\": 58\n}",
+    "justes": 1
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Toulouse\",\n  \"contrat\": \"Stage\",\n  \"mode\": \"sur site\",\n  \"salaire_min\": 1200,\n  \"salaire_max\": 14400\n}",
+    "justes": 4
+   },
+   {
+    "reponse": "```json\n{\n  \"ville\": \"Bordeaux\",\n  \"contrat\": \"Alternance\",\n  \"mode\": \"Hybrid\",\n  \"salaire_min\": 15000,\n  \"salaire_max\": 18000\n}\n```",
+    "justes": 4
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Lille\",\n  \"contrat\": \"Freelance\",\n  \"mode\": \"Hybride\",\n  \"salaire_min\": 85000,\n  \"salaire_max\": 95000\n}",
+    "justes": 4
+   },
+   {
+    "reponse": "```json\n{\n  \"ville\": \"Marseille\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybride\",\n  \"salaire_min\": 50,\n  \"salaire_max\": 60\n}\n```",
+    "justes": 2
+   },
+   {
+    "reponse": "{\n  \"ville\": \"Rennes\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"hybride\",\n  \"salaire_min\": 38000,\n  \"salaire_max\": 44000\n}",
+    "justes": 4
+   },
+   {
+    "reponse": "```json\n{\n  \"ville\": \"Strasbourg\",\n  \"contrat\": \"CDI\",\n  \"mode\": \"Hybrid\",\n  \"salaire_min\": 60000,\n  \"salaire_max\": 70000\n}\n```",
+    "justes": 4
+   }
+  ]
+ },
+ "apres": {
+  "champs_justes": 56,
+  "champs_total": 60,
+  "json_invalides": 0,
+  "secondes_par_annonce": 3.82,
+  "detail": [
+   {
+    "reponse": "{\"ville\": \"Lyon\", \"contrat\": \"CDI\", \"mode\": \"hybride\", \"salaire_min\": 52000, \"salaire_max\": 62000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Paris\", \"contrat\": \"CDI\", \"mode\": \"à distance\", \"salaire_min\": 55000, \"salaire_max\": 68000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Lyons\", \"contrat\": \"CDI\", \"mode\": \"sur site\", \"salaire_min\": 58000, \"salaire_max\": 72000}",
+    "justes": 4
+   },
+   {
+    "reponse": "{\"ville\": \"Nantes\", \"contrat\": \"Alternance\", \"mode\": \"à distance\", \"salaire_min\": 40000, \"salaire_max\": 50000}",
+    "justes": 4
+   },
+   {
+    "reponse": "{\"ville\": \"Grenoble\", \"contrat\": \"CDD\", \"mode\": \"hybride\", \"salaire_min\": 45000, \"salaire_max\": 54000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Lyons\", \"contrat\": \"CDI\", \"mode\": \"sur site\", \"salaire_min\": 48000, \"salaire_max\": 58000}",
+    "justes": 4
+   },
+   {
+    "reponse": "{\"ville\": \"Toulouse\", \"contrat\": \"Stage\", \"mode\": \"sur site\", \"salaire_min\": 14400, \"salaire_max\": 14400}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Bordeaux\", \"contrat\": \"Alternance\", \"mode\": \"à distance\", \"salaire_min\": 15000, \"salaire_max\": 18000}",
+    "justes": 4
+   },
+   {
+    "reponse": "{\"ville\": \"Lille\", \"contrat\": \"Freelance\", \"mode\": \"à distance\", \"salaire_min\": 85000, \"salaire_max\": 95000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Marseille\", \"contrat\": \"CDI\", \"mode\": \"sur site\", \"salaire_min\": 50000, \"salaire_max\": 60000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Rennes\", \"contrat\": \"CDD\", \"mode\": \"hybride\", \"salaire_min\": 38000, \"salaire_max\": 44000}",
+    "justes": 5
+   },
+   {
+    "reponse": "{\"ville\": \"Strasbourg\", \"contrat\": \"CDI\", \"mode\": \"à distance\", \"salaire_min\": 60000, \"salaire_max\": 70000}",
+    "justes": 5
+   }
+  ]
+ }
+}

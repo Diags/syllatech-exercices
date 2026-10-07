@@ -1,0 +1,569 @@
+{
+ "approche": "guide-relie",
+ "modele": "qwen2.5:1.5b-instruct-q4_K_M",
+ "date": "2026-10-07",
+ "passages": [
+  {
+   "banc": {
+    "justes": 12,
+    "total": 14,
+    "secondes": 70.1,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-101",
+       "OFF-115",
+       "OFF-124"
+      ],
+      "reponse": "Les offres de développeur Java à Lyon sont les suivantes :\n\n1. OFF-115 - Développeur Java chez Boréal (Lyon)\n2. OFF-101 - Développeur Java senior chez Nordeau (Lyon)\n3. OFF-124 - Stagiaire développeur Java chez Boréal (Lyon)"
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [
+       "OFF-107"
+      ],
+      "reponse": "Je peux vous proposer l'offre suivante : OFF-107 - Data engineer - Paris - CDI - à distance - 54000 - 66000€."
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-105"
+      ],
+      "reponse": "Oui, il y a un CDD à Grenoble. La référence correspondante est OFF-105, pour le poste de Développeur full stack Java et React."
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "Le poste d'ingénieur IA (OFF-103) chez Lumen a un salaire entre 58 000 et 72 000 euros brut annuel."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-101",
+       "OFF-102",
+       "OFF-110",
+       "OFF-118",
+       "OFF-124"
+      ],
+      "reponse": "Les offres en alternance sont les suivantes :\n\n1. OFF-110 : Alternant développeur web\n2. OFF-118 : Alternant data analyst\n3. OFF-102 : Ingénieur DevOps\n4. OFF-101 : Développeur Java senior\n5. OFF-124 : Stagiaire développeur Java"
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-104"
+      ],
+      "reponse": "La référence de l'offre de designer UX/UI en freelance est OFF-104."
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "Le poste \"Ingénieur sécurité\" à Paris correspond à la référence OFF-120."
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-102"
+      ],
+      "reponse": "La référence de l'offre qui demande de connaître Kubernetes est OFF-102."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre OFF-103 a reçu 21 candidatures."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre qui a reçu le plus de candidatures est l'offre \"Ingénieur IA (OFF-103)\" avec 21 candidatures."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-999"
+      ],
+      "reponse": "La référence OFF-999 n'existe pas dans le portail."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais les données fournies ne mentionnent pas d'offres proposées par Google."
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas répondre à cette question car elle porte sur des informations liées à des offres d'emploi et non à la météo."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas écrire un poème sur la mer car je suis un assistant virtuel et je n'ai pas la capacité de créer du contenu littéraire."
+     }
+    ]
+   },
+   "validation": {
+    "justes": 6,
+    "total": 8,
+    "secondes": 30.5,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-110",
+       "OFF-121"
+      ],
+      "reponse": "Des offres de développeur à Bordeaux :\n\n- OFF-110 : Alternant développeur web\n- OFF-121 : Développeur mobile"
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [
+       "OFF-119"
+      ],
+      "reponse": "Je peux vous proposer une offre qui correspond à votre recherche : OFF-119 - Comptable pour la Banque Rhône à Marseille."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-111"
+      ],
+      "reponse": "OFF-111"
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "13 personnes ont postulé à OFF-120."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-119"
+      ],
+      "reponse": "La fourchette de salaire pour le poste de comptable (OFF-119) est de 36 000 € à 42 000 €."
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Non, je n'ai pas d'offres chez Amazon."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas te donner une recette de crêpes car cette question n'est pas liée aux offres d'emploi du portail."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je ne peux pas répondre à cette question car aucune offre n'est mentionnée dans les données fournies."
+     }
+    ]
+   }
+  },
+  {
+   "banc": {
+    "justes": 12,
+    "total": 14,
+    "secondes": 38.6,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-101",
+       "OFF-115",
+       "OFF-124"
+      ],
+      "reponse": "Les offres de développeur Java à Lyon sont les suivantes :\n\n1. OFF-115 - Développeur Java chez Boréal (Lyon)\n2. OFF-101 - Développeur Java senior chez Nordeau (Lyon)\n3. OFF-124 - Stagiaire développeur Java chez Boréal (Lyon)"
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [
+       "OFF-107"
+      ],
+      "reponse": "Je peux vous proposer l'offre suivante : OFF-107 - Data engineer - Paris - CDI - à distance - 54000 - 66000€."
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-105"
+      ],
+      "reponse": "Oui, il y a un CDD à Grenoble. Le poste \"Développeur full stack Java et React (OFF-105)\" est situé à Grenoble et est mentionné dans les données fournies."
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "Le poste d'ingénieur IA chez Lumen a une référence de OFF-103 et un salaire de 58 000 à 72 000 euros brut annuel."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-101",
+       "OFF-102",
+       "OFF-110",
+       "OFF-118",
+       "OFF-124"
+      ],
+      "reponse": "Les offres en alternance sont les suivantes :\n\n- OFF-110 : Alternant développeur web\n- OFF-118 : Alternant data analyst\n- OFF-102 : Ingénieur DevOps\n- OFF-101 : Développeur Java senior\n- OFF-124 : Stagiaire développeur Java"
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-104"
+      ],
+      "reponse": "La référence de l'offre de designer UX/UI en freelance est OFF-104."
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "Le poste \"Ingénieur sécurité (OFF-120)\" à Paris est proposé par la entreprise Fjord avec une rémunération minimale de 62 000 € et une maximale de 76 000 €."
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-102"
+      ],
+      "reponse": "La référence de l'offre qui demande de connaître Kubernetes est OFF-102."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre OFF-103 a reçu 21 candidatures."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre qui a reçu le plus de candidatures est l'offre \"Ingénieur IA (OFF-103)\" avec 21 candidatures."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-999"
+      ],
+      "reponse": "La référence OFF-999 n'existe pas dans le portail."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais les données fournies ne mentionnent pas d'offres proposées par Google."
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas répondre à cette question car elle porte sur des informations liées à des offres d'emploi et non à la météo."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas écrire un poème sur la mer car je suis un assistant virtuel et je n'ai pas la capacité de créer du contenu littéraire."
+     }
+    ]
+   },
+   "validation": {
+    "justes": 6,
+    "total": 8,
+    "secondes": 26.0,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-110",
+       "OFF-121"
+      ],
+      "reponse": "Des offres de développeur à Bordeaux :\n\n- OFF-110 : Alternant développeur web\n- OFF-121 : Développeur mobile"
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [
+       "OFF-123"
+      ],
+      "reponse": "Je peux vous proposer l'offre suivante :\n\n- Titre : Responsable marketing (OFF-123)\n- Entreprise : Jade\n- Ville : Marseille\n- Contrat : CDI\n- Salaire : 52 000 - 64 000 €\n- Description : Stratégie d'acquisition, campagnes payantes et marketing de contenu."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-111"
+      ],
+      "reponse": "OFF-111"
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "13 personnes ont postulé à OFF-120."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-119"
+      ],
+      "reponse": "La fourchette de salaire pour le poste de comptable (OFF-119) est de 36 000 € à 42 000 €."
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Non, je n'ai pas d'offres chez Amazon."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas te donner une recette de crêpes car cette question n'est pas liée aux offres d'emploi du portail."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je ne peux pas répondre à cette question car aucune offre n'est mentionnée dans les données fournies."
+     }
+    ]
+   }
+  }
+ ]
+}

@@ -1,0 +1,11 @@
+# Le MEME service, ecrit comme on le trouve trop souvent.
+#
+# Un seul etage, root, ENTRYPOINT en forme shell, et tout le
+# projet copie d'un coup. Il construit, il tourne, et il coche
+# les quatre mauvaises cases. Le chapitre 4 les compte.
+FROM maven:3-eclipse-temurin-25
+WORKDIR /application
+COPY . .
+RUN mvn -B -q package -DskipTests
+EXPOSE 8080
+ENTRYPOINT java -jar target/application.jar

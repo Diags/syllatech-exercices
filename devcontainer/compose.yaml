@@ -1,0 +1,17 @@
+# Le fichier Compose du projet, a la racine du depot. Le devcontainer.json
+# le designe par "../compose.yaml" — un cran au-dessus de .devcontainer/.
+services:
+  app:
+    build:
+      context: .
+      dockerfile: .devcontainer/Dockerfile
+      target: dev
+    volumes:
+      - ..:/workspaces:cached
+    depends_on: [db, cache]
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_PASSWORD: portail
+  cache:
+    image: redis:7

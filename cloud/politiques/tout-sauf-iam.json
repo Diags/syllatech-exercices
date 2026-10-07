@@ -1,0 +1,15 @@
+{
+  "_pourquoi": "PIECE A CONVICTION — NE PAS REPARER. « Tout sauf IAM » est une INVERSION : NotAction accorde absolument tout le reste, y compris ce qui n'existait pas le jour ou la politique a ete ecrite.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "ToutSaufIam",
+      "Effect": "Allow",
+      "NotAction": [
+        "iam:*",
+        "organizations:*"
+      ],
+      "Resource": "*"
+    }
+  ]
+}

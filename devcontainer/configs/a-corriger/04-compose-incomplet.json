@@ -1,0 +1,9 @@
+// En mode Compose, le schema exige TROIS proprietes : dockerComposeFile,
+// service et workspaceFolder. La troisieme s'oublie facilement, parce
+// qu'elle n'a pas d'equivalent en mode image.
+{
+  "name": "Compose incomplet",
+  "dockerComposeFile": ["../compose.yaml", "compose.dev.yaml"],
+  "service": "app",
+  "runServices": ["app", "db"]
+}

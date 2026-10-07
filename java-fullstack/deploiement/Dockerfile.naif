@@ -1,0 +1,11 @@
+# ⚠️ PIECE A CONVICTION — NE PAS « REPARER ».
+#
+# Le Dockerfile qu'on ecrit sans y penser. Il FONCTIONNE : l'application
+# demarre et repond. C'est ce qui le rend dangereux — rien n'echoue, et
+# l'image pese dix fois plus, tourne en root, et embarque le secret.
+FROM maven:3-eclipse-temurin-25
+COPY . /app
+WORKDIR /app
+ENV PORTAIL_JWT_CLE=cle-de-production-tres-secrete
+RUN mvn package
+CMD mvn spring-boot:run

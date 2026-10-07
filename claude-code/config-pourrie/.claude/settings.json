@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": ["mcp__db__query", "mcp__github__list_prs"],
+    "deny": ["mcp__db__execute", "mcp__analytics__export"]
+  },
+  "hooks": {
+    "PostToolUse": [{
+      "matcher": "Edit|Write",
+      "hooks": [{ "type": "command",
+                  "command": "python .claude/hooks/formate.py" }]
+    }],
+    "PreToolUsage": [{
+      "matcher": "Bash",
+      "hooks": [{ "type": "command",
+                  "command": "python .claude/hooks/garde.py" }]
+    }]
+  }
+}

@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Portail de l'emploi — projet du cours « Java Fullstack ».
+
+  ⚠️ LE BACK EST REEL. Une vraie application Spring Boot 4 : trois couches,
+  des DTO, Bean Validation, Spring Data JPA sur une base H2 en memoire,
+  Flyway qui versionne le schema, et des JWT signes en HMAC-SHA256 qu'un
+  filtre valide a chaque requete. Tout cela demarre et repond en HTTP.
+
+  ⚠️ LE FRONT N'EST PAS LANCE, ET SES MECANISMES SONT MESURES. Un cours ne
+  peut pas exiger Node ni un navigateur. Ce que les chapitres 1 et 5
+  implantent — la reconciliation d'une liste avec et sans `key`, la
+  semantique de `useState`/`useEffect`, un magasin a la Redux, la
+  verification de signature d'un webhook Stripe — est ecrit en Java et
+  COMPTE ce qui se passe. Le README dit precisement ce que cela ne prouve
+  pas.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>4.1.1</version>
+    <relativePath/>
+  </parent>
+
+  <groupId>fr.portail</groupId>
+  <artifactId>fullstack-portail</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Portail de l'emploi — Java Fullstack</name>
+
+  <properties>
+    <java.version>25</java.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-validation</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <!--
+      Spring Security n'est ici que pour BCrypt et la chaine de filtres :
+      le JWT lui-meme est signe et verifie a la main, pour que le
+      chapitre 4 puisse en ouvrir la charge utile devant vous.
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- La base : en memoire, donc rien a installer. -->
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <!--
+      Flyway : le schema est versionne, pas devine par Hibernate.
+
+      ⚠️ DEUX ARTEFACTS, ET LE SECOND EST NOUVEAU. Depuis Spring Boot 4,
+      la configuration automatique de Flyway vit dans un module a part :
+      `spring-boot-flyway`. Avec `flyway-core` seul, tout se resout sans
+      erreur, aucune migration ne s'execute, rien n'est journalise — et
+      Hibernate echoue plus loin sur « missing table ». Le silence est ce
+      qui rend ce piege couteux.
+    -->
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-flyway</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.flywaydb</groupId>
+      <artifactId>flyway-core</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.security</groupId>
+      <artifactId>spring-security-test</artifactId>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <configuration>
+          <argLine>-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

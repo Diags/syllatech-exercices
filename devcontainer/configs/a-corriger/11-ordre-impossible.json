@@ -1,0 +1,16 @@
+// Valide. L'ordre impose demande terraform AVANT github-cli — mais
+// terraform declare `dependsOn` sur github-cli, une dependance DURE.
+// « Elle ne peut pas contredire le graphe de dependances resolu » : le
+// graphe gagne, et l'ordre impose ne fait rien du tout ici.
+{
+  "name": "Ordre impose impossible",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "features": {
+    "ghcr.io/devcontainers/features/terraform:1": {},
+    "ghcr.io/devcontainers/features/github-cli:1": {}
+  },
+  "overrideFeatureInstallOrder": [
+    "ghcr.io/devcontainers/features/terraform",
+    "ghcr.io/devcontainers/features/github-cli"
+  ]
+}

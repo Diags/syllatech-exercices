@@ -1,0 +1,20 @@
+# Le portail de l'emploi, cote securite.
+#
+# Remarquez ce qui N'EST PAS ici : ni `issuer-uri`, ni `jwk-set-uri`. Le
+# resource server recoit son `JwtDecoder` de `fr.portail.cles.Cles`, construit
+# a partir de la cle publique generee au demarrage. C'est ce qui rend ce
+# projet entierement hors ligne.
+#
+# En production, ces deux lignes suffiraient a la place :
+#   spring.security.oauth2.resourceserver.jwt.issuer-uri: https://auth.…/realms/x
+# et Spring irait lire le document de decouverte, puis le JWKS, tout seul.
+
+spring:
+  application:
+    name: portail-securite
+
+server:
+  error:
+    # Ne jamais publier de trace : elle nomme nos classes et nos versions.
+    include-stacktrace: never
+    include-message: never

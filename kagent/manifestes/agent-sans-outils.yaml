@@ -1,0 +1,17 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Le meme agent, sans aucun outil. Il est valide, il est Ready, il repond —
+# et il repond de memoire. Le chapitre 3 met les deux reponses cote a cote.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-sans-outils
+  namespace: kagent
+spec:
+  type: Declarative
+  description: Le meme agent, prive de ses yeux
+  declarative:
+    systemMessage: |
+      Tu diagnostiques les incidents du cluster du portail de l'emploi.
+    modelConfig: claude-config

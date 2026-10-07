@@ -1,0 +1,24 @@
+{
+  "_pourquoi": "PIECE A CONVICTION — NE PAS REPARER. Cette politique s'appelle « lecture seule » et accorde s3:DeleteObject. La deuxieme declaration, ajoutee « pour debloquer un incident », annule la premiere intention. Le chapitre 3 enumere ce qu'elle accorde vraiment.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "LireLesCandidatures",
+      "Effect": "Allow",
+      "Action": [
+        "s3:GetObject",
+        "s3:ListBucket"
+      ],
+      "Resource": [
+        "arn:aws:s3:::cv-candidats",
+        "arn:aws:s3:::cv-candidats/*"
+      ]
+    },
+    {
+      "Sid": "DebloquerIncident2024",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "*"
+    }
+  ]
+}

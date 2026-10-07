@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "jobportal": {
+      "command": "uv",
+      "args": ["run", "jobportal-serveur"]
+    }
+  }
+}

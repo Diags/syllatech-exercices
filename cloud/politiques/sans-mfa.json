@@ -1,0 +1,23 @@
+{
+  "_pourquoi": "PIECE A CONVICTION — NE PAS REPARER. « Refuser tout sans MFA », avec l'operateur Bool. Une demande qui n'annonce PAS de cle aws:MultiFactorAuthPresent ne correspond pas a la condition, donc le Deny ne s'applique pas. Le chapitre 3 mesure le trou.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RefuserSansMfa",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "Bool": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    },
+    {
+      "Sid": "AccorderLeReste",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::cv-candidats/*"
+    }
+  ]
+}

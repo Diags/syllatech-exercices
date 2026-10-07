@@ -1,0 +1,592 @@
+{
+ "date": "2026-10-06",
+ "machine": {
+  "systeme": "Windows-11-10.0.26200-SP0",
+  "threads": 16,
+  "processeur": "Intel(R) Core(TM) 7 240H",
+  "ram_go": 31.6
+ },
+ "ollama": "0.35.0",
+ "serveur_mesures": {
+  "OLLAMA_NUM_PARALLEL": "1",
+  "OLLAMA_MAX_LOADED_MODELS": "3",
+  "OLLAMA_CONTEXT_LENGTH": "0",
+  "OLLAMA_KEEP_ALIVE": "5m0s",
+  "OLLAMA_FLASH_ATTENTION": "false",
+  "OLLAMA_KV_CACHE_TYPE": ""
+ },
+ "modeles": {
+  "qwen2.5:1.5b-instruct-q4_K_M": {
+   "disque_mo": 986,
+   "memoire_chargee_mo": 1170,
+   "vram_mo": 0,
+   "contexte_par_defaut": 4096,
+   "chargement_a_froid_s": 2.06,
+   "generation_mesures": [
+    36.3,
+    20.3,
+    15.1,
+    22.4,
+    32.0,
+    18.8,
+    24.2
+   ],
+   "lecture_mesures": [
+    180.6,
+    165.8,
+    157.9,
+    158.3,
+    161.7,
+    141.1,
+    164.1
+   ],
+   "prompt_long_jetons": 618,
+   "prompt_long_ms": 3765,
+   "prompt_long_relu_jetons": 618,
+   "prompt_long_relu_ms": 54,
+   "generation_jetons_par_s": 22.4,
+   "lecture_prompt_jetons_par_s": 161.7,
+   "charge_processeur_pourcent": [
+    37.5,
+    46.6,
+    52.1,
+    54.3,
+    27.8,
+    50.0,
+    26.0
+   ],
+   "rapport_de_vitesse_sur_q8_0": 1.55,
+   "extraction_champs_justes": 54,
+   "extraction_champs_total": 60,
+   "extraction_secondes_par_annonce": 3.37,
+   "extraction_detail": [
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 52000,
+      "salaire_max": 62000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Paris",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 55000,
+      "salaire_max": 68000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 58000,
+      "salaire_max": 72000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Nantes",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 40000,
+      "salaire_max": 50000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Grenoble",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 45000,
+      "salaire_max": 54000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 48000,
+      "salaire_max": 58000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Toulouse",
+      "contrat": "Stage",
+      "mode": "sur site",
+      "salaire_min": 1200,
+      "salaire_max": 14400
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Bordeaux",
+      "contrat": "Alternance",
+      "mode": "sur site",
+      "salaire_min": 15000,
+      "salaire_max": 18000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Lille",
+      "contrat": "Freelance",
+      "mode": "à distance",
+      "salaire_min": 85000,
+      "salaire_max": 95000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Marseille",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 50000,
+      "salaire_max": 60000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Rennes",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 38000,
+      "salaire_max": 44000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Strasbourg",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 60000,
+      "salaire_max": 70000
+     },
+     "justes": 5
+    }
+   ]
+  },
+  "qwen2.5:1.5b-instruct-q8_0": {
+   "disque_mo": 1647,
+   "memoire_chargee_mo": 1831,
+   "vram_mo": 0,
+   "contexte_par_defaut": 4096,
+   "chargement_a_froid_s": 2.66,
+   "generation_mesures": [
+    18.4,
+    17.6,
+    11.7,
+    15.2,
+    14.9,
+    10.9,
+    15.6
+   ],
+   "lecture_mesures": [
+    80.1,
+    77.1,
+    62.1,
+    69.7,
+    62.5,
+    76.9,
+    66.1
+   ],
+   "prompt_long_jetons": 618,
+   "prompt_long_ms": 9355,
+   "prompt_long_relu_jetons": 618,
+   "prompt_long_relu_ms": 81,
+   "generation_jetons_par_s": 15.2,
+   "lecture_prompt_jetons_par_s": 69.7,
+   "charge_processeur_pourcent": [
+    37.5,
+    46.6,
+    52.1,
+    54.3,
+    27.8,
+    50.0,
+    26.0
+   ],
+   "rapport_de_vitesse_sur_fp16": 1.59,
+   "extraction_champs_justes": 55,
+   "extraction_champs_total": 60,
+   "extraction_secondes_par_annonce": 4.75,
+   "extraction_detail": [
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 52000,
+      "salaire_max": 62000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Paris",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 55000,
+      "salaire_max": 68000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 58000,
+      "salaire_max": 72000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Nantes",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 40000,
+      "salaire_max": 50000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Grenoble",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 45000,
+      "salaire_max": 54000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 48000,
+      "salaire_max": 58000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Toulouse",
+      "contrat": "Stage",
+      "mode": "sur site",
+      "salaire_min": 1200,
+      "salaire_max": 14400
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Bordeaux",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 15000,
+      "salaire_max": 18000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Lille",
+      "contrat": "Freelance",
+      "mode": "à distance",
+      "salaire_min": 85000,
+      "salaire_max": 95000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Marseille",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 50000,
+      "salaire_max": 60000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Rennes",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 38000,
+      "salaire_max": 44000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Strasbourg",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 60000,
+      "salaire_max": 70000
+     },
+     "justes": 5
+    }
+   ]
+  },
+  "qwen2.5:1.5b-instruct-fp16": {
+   "disque_mo": 3094,
+   "memoire_chargee_mo": 3278,
+   "vram_mo": 0,
+   "contexte_par_defaut": 4096,
+   "chargement_a_froid_s": 5.24,
+   "generation_mesures": [
+    10.4,
+    10.3,
+    7.3,
+    11.5,
+    9.4,
+    8.4,
+    9.9
+   ],
+   "lecture_mesures": [
+    92.8,
+    111.0,
+    95.8,
+    104.5,
+    83.4,
+    96.0,
+    96.3
+   ],
+   "prompt_long_jetons": 618,
+   "prompt_long_ms": 6420,
+   "prompt_long_relu_jetons": 618,
+   "prompt_long_relu_ms": 112,
+   "generation_jetons_par_s": 9.9,
+   "lecture_prompt_jetons_par_s": 96.0,
+   "charge_processeur_pourcent": [
+    37.5,
+    46.6,
+    52.1,
+    54.3,
+    27.8,
+    50.0,
+    26.0
+   ],
+   "extraction_champs_justes": 55,
+   "extraction_champs_total": 60,
+   "extraction_secondes_par_annonce": 7.86,
+   "extraction_detail": [
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 52000,
+      "salaire_max": 62000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Paris",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 55000,
+      "salaire_max": 68000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 58000,
+      "salaire_max": 72000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Nantes",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 40000,
+      "salaire_max": 50000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Grenoble",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 45000,
+      "salaire_max": 54000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Lyon",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 48000,
+      "salaire_max": 58000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Toulouse",
+      "contrat": "Stage",
+      "mode": "sur site",
+      "salaire_min": 1200,
+      "salaire_max": 14400
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Bordeaux",
+      "contrat": "Alternance",
+      "mode": "à distance",
+      "salaire_min": 15000,
+      "salaire_max": 18000
+     },
+     "justes": 4
+    },
+    {
+     "obtenu": {
+      "ville": "Lille",
+      "contrat": "Freelance",
+      "mode": "à distance",
+      "salaire_min": 85000,
+      "salaire_max": 95000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Marseille",
+      "contrat": "CDI",
+      "mode": "sur site",
+      "salaire_min": 50000,
+      "salaire_max": 60000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Rennes",
+      "contrat": "CDD",
+      "mode": "hybride",
+      "salaire_min": 38000,
+      "salaire_max": 44000
+     },
+     "justes": 5
+    },
+    {
+     "obtenu": {
+      "ville": "Strasbourg",
+      "contrat": "CDI",
+      "mode": "à distance",
+      "salaire_min": 60000,
+      "salaire_max": 70000
+     },
+     "justes": 5
+    }
+   ]
+  }
+ },
+ "contextes": {
+  "2048": {
+   "memoire_mo": 1109,
+   "context_length": 2048
+  },
+  "8192": {
+   "memoire_mo": 1368,
+   "context_length": 8192
+  },
+  "32768": {
+   "memoire_mo": 2123,
+   "context_length": 32768
+  }
+ },
+ "parallele": {
+  "OLLAMA_NUM_PARALLEL=1": {
+   "charge_processeur_pourcent": 79.9,
+   "requetes": 4,
+   "sequentiel_s": 12.92,
+   "sequentiel_jetons_par_s": 19.8,
+   "simultane_s": 20.43,
+   "simultane_jetons_par_s": 12.5,
+   "simultane_arrivees_s": [
+    7.33,
+    14.58,
+    18.17,
+    20.43
+   ]
+  },
+  "OLLAMA_NUM_PARALLEL=4": {
+   "charge_processeur_pourcent": 55.2,
+   "requetes": 4,
+   "sequentiel_s": 14.97,
+   "sequentiel_jetons_par_s": 17.1,
+   "simultane_s": 9.41,
+   "simultane_jetons_par_s": 27.2,
+   "simultane_arrivees_s": [
+    9.17,
+    9.32,
+    9.32,
+    9.4
+   ],
+   "serveur": {
+    "OLLAMA_NUM_PARALLEL": "4",
+    "OLLAMA_MAX_LOADED_MODELS": "0",
+    "OLLAMA_CONTEXT_LENGTH": "0",
+    "OLLAMA_KEEP_ALIVE": "5m0s",
+    "OLLAMA_FLASH_ATTENTION": "false",
+    "OLLAMA_KV_CACHE_TYPE": ""
+   }
+  }
+ },
+ "embeddings": {
+  "rang_de_la_bonne_offre": {
+   "Je cherche un poste de développeur Java expérimenté dans la région lyonnaise": 1,
+   "Un emploi DevOps que je peux faire depuis chez moi": 1,
+   "Travailler sur l'intelligence artificielle et le machine learning": 1,
+   "Mission de design d'interfaces en indépendant": 1,
+   "Développeur front et back, contrat court, Alpes": 3,
+   "Finance d'entreprise et analyse de comptes": 1
+  },
+  "dimension": 1024,
+  "chargement_a_froid_s": 3.83,
+  "ms_par_texte": 45.7,
+  "bonne_offre_en_tete": 5,
+  "questions": 6
+ },
+ "constats": {
+  "q4 génère plus vite que q8 (médiane des rapports par tour > 1)": true,
+  "q8 génère plus vite que fp16 (médiane des rapports par tour > 1)": true,
+  "OLLAMA_NUM_PARALLEL=1 : les réponses simultanées arrivent en escalier": true,
+  "OLLAMA_NUM_PARALLEL=4 : les réponses simultanées arrivent ensemble (à moins de 0,5 s)": true,
+  "OLLAMA_NUM_PARALLEL=4 : plus de jetons/s en simultané qu'en série (rapport > 1,2)": true,
+  "le cache évite plus de 90 % de la relecture du prompt long": true
+ }
+}

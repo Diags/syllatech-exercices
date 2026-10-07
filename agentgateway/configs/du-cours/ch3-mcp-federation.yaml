@@ -1,0 +1,19 @@
+# Chapitre 3 du support — « federer trois serveurs MCP heterogenes ».
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - backends:
+      - mcp:
+          targets:
+          - name: postgres
+            stdio:
+              cmd: uvx
+              args: ["mcp-server-postgres"]
+          - name: navigateur
+            stdio:
+              cmd: npx
+              args: ["@playwright/mcp"]
+          - name: api-interne
+            openapi:
+              url: https://api.jobportal.fr/openapi.json

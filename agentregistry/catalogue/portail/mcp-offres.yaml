@@ -1,0 +1,30 @@
+# Le serveur MCP qui expose les offres du portail aux agents.
+#
+# Distribue en image OCI : l'identifiant porte le registre, le nom et la
+# VERSION. Sans le « :1.4.0 » final, la fiche publiee par le catalogue
+# retomberait sur « 0.0.0 » — le chapitre 6 le mesure.
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: offres
+  tag: stable
+  labels:
+    # Aucun champ « capability » n'existe dans le schema : la decouverte
+    # passe par des libelles, et la convention est a inventer par l'equipe.
+    portail.emploi/capacite: offres
+    portail.emploi/donnees: publiques
+spec:
+  title: Offres du portail
+  description: "Recherche, lecture et statistiques des offres d'emploi publiees"
+  source:
+    package:
+      origin:
+        type: oci
+        identifier: ghcr.io/portail-emploi/mcp-offres:1.4.0
+        oci:
+          # Doit correspondre au label io.modelcontextprotocol.server.name
+          # embarque dans l'image : c'est ce que compare le controle de
+          # propriete du registre.
+          serverName: io.github.portail-emploi/mcp-offres
+      transport:
+        type: stdio

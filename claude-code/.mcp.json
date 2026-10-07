@@ -1,0 +1,10 @@
+{
+  "mcpServers": {
+    "db": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@bytebase/dbhub@1.4.2",
+               "--dsn", "${JOBPORTAL_DSN:-postgres://localhost:5432/jobportal}"]
+    }
+  }
+}

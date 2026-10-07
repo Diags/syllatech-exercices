@@ -1,0 +1,42 @@
+# La passerelle MCP du Portail de l'emploi : trois familles d'outils, un
+# seul endpoint.
+#
+# Les trois cibles ne se ressemblent pas — un paquet PyPI lance en stdio, un
+# paquet npm lance en stdio, et une API REST existante dont les endpoints
+# deviennent des outils. L'agent ne voit que le catalogue.
+binds:
+- port: 3000
+  listeners:
+  - name: mcp
+    protocol: HTTP
+    routes:
+    - name: outils-du-portail
+      matches:
+      - path:
+          pathPrefix: /mcp
+      policies:
+        cors:
+          allowOrigins: ["*"]
+          allowHeaders: [content-type, mcp-protocol-version, mcp-session-id]
+          exposeHeaders: [mcp-session-id]
+      backends:
+      - mcp:
+          # « always » prefixe les noms d'outils par le nom de la cible, meme
+          # avec une seule cible. Sans cela le prefixage est « conditional »
+          # et depend du NOMBRE de cibles : ajouter un serveur renomme les
+          # outils de tous les autres.
+          prefixMode: always
+          targets:
+          - name: offres
+            stdio:
+              cmd: uvx
+              args: ["portail-mcp-offres"]
+          - name: navigateur
+            stdio:
+              cmd: npx
+              args: ["@playwright/mcp"]
+          - name: annuaire
+            openapi:
+              schema:
+                file: ./configs/portail/annuaire.openapi.json
+              host: annuaire.exemple.test:443

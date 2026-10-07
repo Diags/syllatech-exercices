@@ -1,0 +1,4 @@
+# Le Dockerfile est lu par Docker dans un conteneur Linux : il doit arriver
+# en LF, quel que soit le systeme qui a fait le clone.
+Dockerfile text eol=lf
+*.yml text eol=lf

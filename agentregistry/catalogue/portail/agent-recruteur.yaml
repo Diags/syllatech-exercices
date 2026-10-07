@@ -1,0 +1,40 @@
+# L'agent : une identite, une image, et des references vers le reste.
+#
+# Trois choses a voir ici :
+#   · `kind` est ecrit sur chaque reference — le validateur le poserait tout
+#     seul, mais le schema OpenAPI publie, lui, l'exige (chapitre 3) ;
+#   · `tag: stable` epingle ; une reference SANS tag resout « latest », qui
+#     bouge (chapitre 4) ;
+#   · `compatibleHarnesses` est obligatoire des qu'on declare des skills ou
+#     des instructions : « a prebuilt Image cannot consume injected files ».
+apiVersion: ar.dev/v1alpha1
+kind: Agent
+metadata:
+  name: recruteur
+  tag: stable
+spec:
+  title: Agent recruteur
+  description: "Trie les candidatures d'une offre et prepare les entretiens"
+  source:
+    image: ghcr.io/portail-emploi/agent-recruteur:2.1.0
+    protocol: A2A
+  compatibleHarnesses:
+    - type: claude-code
+  mcpServers:
+    - kind: MCPServer
+      name: offres
+      tag: stable
+    - kind: MCPServer
+      name: scoring-cv
+      tag: stable
+    - kind: MCPServer
+      name: annuaire-pro
+      tag: stable
+  skills:
+    - kind: Skill
+      name: tri-candidatures
+      tag: stable
+  instructions:
+    kind: Prompt
+    name: entretien-structure
+    tag: stable

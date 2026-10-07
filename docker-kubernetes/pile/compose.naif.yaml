@@ -1,0 +1,34 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# La meme pile, avec quatre defauts. Elle demarre, et l'application tombe
+# une fois sur deux au premier lancement.
+#
+#   1. `depends_on: [db]` — la forme courte n'attend que le DEMARRAGE du
+#      conteneur, jamais la disponibilite de PostgreSQL ;
+#   2. aucun `healthcheck` : rien ne dit quand la base est prete ;
+#   3. le mot de passe est ecrit en clair dans le fichier, donc dans Git ;
+#   4. la base publie son port sur l'hote — 5432 ouvert sur la machine,
+#      pour rien.
+#
+# `tests/test_a_corriger.py` verifie que ces quatre defauts sont toujours la.
+
+name: jobportal-naif
+
+services:
+
+  app:
+    build: ../contexte
+    ports: ["8080:8080"]
+    environment:
+      DB_URL: jdbc:postgresql://db:5432/jobportal
+      DB_PASSWORD: motdepasse
+    depends_on: [db]
+    x-simulation: { demarre_en: 6.5, se_connecte_apres: 3.8 }
+
+  db:
+    image: postgres:16
+    ports: ["5432:5432"]
+    environment:
+      POSTGRES_PASSWORD: motdepasse
+      POSTGRES_DB: jobportal
+    x-simulation: { demarre_en: 0.4, accepte_apres: 9.0 }

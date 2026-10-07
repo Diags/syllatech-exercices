@@ -1,0 +1,8 @@
+// `stopCompose` sur une configuration qui n'est pas Compose. Les deux
+// enumerations de `shutdownAction` different selon la branche : `none` et
+// `stopContainer` d'un cote, `none` et `stopCompose` de l'autre.
+{
+  "name": "Arret croise",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "shutdownAction": "stopCompose"
+}

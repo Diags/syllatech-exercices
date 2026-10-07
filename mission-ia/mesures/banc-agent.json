@@ -1,0 +1,503 @@
+{
+ "approche": "agent",
+ "modele": "qwen2.5:1.5b-instruct-q4_K_M",
+ "date": "2026-10-07",
+ "passages": [
+  {
+   "banc": {
+    "justes": 4,
+    "total": 14,
+    "secondes": 31.5,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres de développeur Java à Lyon pour vous."
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher des offres de poste dans la data qui sont en télétravail complet."
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Oui, il y a des opportunités de CDD à Grenoble. Pourriez-vous préciser si vous recherchez une offre dans un domaine spécifique ou si vous avez une liste de compétences en tête ?"
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations sur les salaires spécifiques pour le poste d'ingénieur IA chez Lumen. Les salaires peuvent varier en fonction de nombreux facteurs, y compris la région, le secteur d'activité, les expériences professionnelles et les compétences du candidat. Pour obtenir une estimation précise, je vous recommande de consulter directement les offres d'emploi ou de contacter directement Lumen pour obtenir des informations plus précises."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres en alternance pour vous. Veuillez me donner une référence si vous en avez une, sinon je vais commencer à rechercher."
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je peux vous aider à trouver des opportunités de freelance designer. Pour commencer, pourriez-vous préciser un peu plus ce que vous recherchez dans votre profil ? Par exemple, quelles compétences avez-vous ? Quel type de projet êtes-vous capable de réaliser ?"
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres de cybersécurité à Paris pour vous."
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres qui mentionnent Kubernetes."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre OFF-103 a reçu 21 candidatures."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais rechercher les offres qui ont reçu le plus de candidatures."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-999"
+      ],
+      "reponse": "Désolé, je n'ai pas trouvé d'offre correspondant à l'ID OFF-999 dans le portail."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je ne peux pas accéder à des informations sur les offres de travail en temps réel ou en direct. Cependant, je peux te proposer une recherche sur Google pour trouver les offres de travail en ligne."
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous aider à trouver le temps de l'avenir à Lyon. Je suis conçu pour trouver des offres d'emploi et les candidatures, pas pour obtenir des informations météorologiques."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas écrire de poèmes."
+     }
+    ]
+   },
+   "validation": {
+    "justes": 1,
+    "total": 8,
+    "secondes": 13.1,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher des offres de développeur à Bordeaux pour vous."
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres de CDI à Marseille."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je n'ai pas accès à des informations sur les offres de stage en data. Pourriez-vous préciser un peu plus votre recherche ? Par exemple, le type de stage, le niveau de qualification recherché, ou les technologies liées à ce type de stage ?"
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "Il n'y a aucune offre du portail correspondant à la référence OFF-120."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à la liste des offres en cours du portail d'emploi. Pourriez-vous me fournir la référence de l'offre de comptable que vous recherchez ?"
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je n'ai pas accès à des informations sur les offres d'emploi en temps réel ou en ligne. Je peux vous aider à trouver des offres en utilisant des outils spécifiques, mais je ne peux pas vous fournir des informations sur les offres en cours d'exécution."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Désolé, mais je ne peux pas aider avec ça."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais analyser les données pour vous identifier l'offre qui a reçu le plus de candidatures."
+     }
+    ]
+   }
+  },
+  {
+   "banc": {
+    "justes": 4,
+    "total": 14,
+    "secondes": 29.3,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais rechercher les offres de développeur Java à Lyon pour vous. Veuillez patienter un moment."
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher des offres de poste dans la data qui sont en télétravail complet."
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Oui, il y a des opportunités de CDD à Grenoble. Pourriez-vous préciser si vous recherchez une offre dans un domaine spécifique ou si vous avez une liste de compétences en tête ?"
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations sur les salaires spécifiques pour le poste d'ingénieur IA chez Lumen. Les salaires peuvent varier en fonction de nombreux facteurs, y compris la région, le secteur d'activité, les expériences professionnelles et les compétences du candidat. Pour obtenir une estimation précise, je vous recommande de consulter directement les offres d'emploi ou de contacter directement Lumen pour obtenir des informations plus précises."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres en alternance pour vous. Veuillez me donner une référence si vous en avez une, sinon je vais commencer à rechercher."
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je peux vous aider à trouver des opportunités de freelance designer. Pour commencer, pourriez-vous préciser un peu plus ce que vous recherchez dans votre profil ? Par exemple, quelles compétences avez-vous ? Quel type de projet êtes-vous capable de réaliser ?"
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres de cybersécurité à Paris pour vous."
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres qui mentionnent Kubernetes."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-103"
+      ],
+      "reponse": "L'offre OFF-103 a reçu 21 candidatures."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais rechercher les offres qui ont reçu le plus de candidatures."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": true,
+       "aucune offre inventée": true
+      },
+      "juste": true,
+      "citees": [
+       "OFF-999"
+      ],
+      "reponse": "Désolé, je n'ai pas trouvé d'offre correspondant à l'ID OFF-999 dans le portail."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je ne peux pas accéder à des informations sur les offres de travail en temps réel ou en direct. Cependant, je peux te proposer une recherche sur Google pour trouver les offres de travail en ligne."
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous aider à trouver le temps de l'avenir à Lyon. Je suis conçu pour trouver des offres d'emploi et les candidatures, pas pour obtenir des informations météorologiques."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas écrire de poèmes."
+     }
+    ]
+   },
+   "validation": {
+    "justes": 1,
+    "total": 8,
+    "secondes": 14.4,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher des offres de développeur à Bordeaux pour vous."
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais chercher les offres de CDI à Marseille."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je n'ai pas accès à des informations sur les offres de stage en data. Pourriez-vous préciser un peu plus votre recherche ? Par exemple, le type de stage, le niveau de qualification recherché, ou les technologies liées à ce type de stage ?"
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": true,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-120"
+      ],
+      "reponse": "Il n'y a aucune offre du portail correspondant à la référence OFF-120."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à la liste des offres en cours du portail d'emploi. Pourriez-vous me fournir la référence de l'offre de comptable que vous recherchez ?"
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je n'ai pas accès à des informations sur les offres d'emploi en temps réel ou en ligne. Je peux vous aider à trouver des offres en utilisant des outils spécifiques, mais je ne peux pas vous fournir des informations sur les offres en cours d'exécution."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Désolé, mais je ne peux pas aider avec ça."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je vais analyser les données pour vous identifier l'offre qui a reçu le plus de candidatures."
+     }
+    ]
+   }
+  }
+ ]
+}

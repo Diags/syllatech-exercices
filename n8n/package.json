@@ -1,0 +1,17 @@
+{
+  "name": "jobportal-n8n",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "description": "Projet de depart du cours syllatech « n8n : l'automatisation low-code »",
+  "scripts": {
+    "test": "node --test \"tests/**/*.test.js\"",
+    "verifier": "node outils/verifier-flux.js flux/a-corriger.json"
+  },
+  "dependencies": {
+    "n8n-workflow": "2.16.0"
+  },
+  "engines": {
+    "node": ">=20"
+  }
+}

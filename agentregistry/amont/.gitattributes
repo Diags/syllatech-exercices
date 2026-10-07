@@ -1,0 +1,4 @@
+# Copies verbatim du depot amont : aucune conversion de fin de ligne.
+# Sans cette regle, core.autocrlf reecrirait ces fichiers en CRLF a la
+# recuperation, et « copie verbatim » deviendrait faux a l octet pres.
+* -text

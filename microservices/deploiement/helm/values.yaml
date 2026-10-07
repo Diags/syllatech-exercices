@@ -1,0 +1,13 @@
+# Les valeurs par defaut du chart — celles de la recette.
+replicaCount: 2
+image:
+  repository: registre.interne/portail/offres-service
+  tag: 1.4.0
+resources:
+  requests:
+    cpu: 250m
+    memory: 512Mi
+  limits:
+    cpu: 1000m
+    memory: 1Gi
+profil: recette
