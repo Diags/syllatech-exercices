@@ -1,0 +1,19 @@
+{
+  "mcpServers": {
+    "jobportal": {
+      "type": "stdio",
+      "command": "uvx",
+      "args": ["--from", ".", "jobportal-mcp"],
+      "env": {
+        "JOBPORTAL_DSN": "${JOBPORTAL_DSN:-sqlite://:memory:}"
+      }
+    },
+    "github": {
+      "type": "http",
+      "url": "https://api.githubcopilot.com/mcp/",
+      "headers": {
+        "Authorization": "Bearer ${GITHUB_PAT}"
+      }
+    }
+  }
+}

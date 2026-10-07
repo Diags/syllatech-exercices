@@ -1,0 +1,9 @@
+// Valide. Mais un TABLEAU n'est pas passe au shell : « it will be run as a
+// single command without shell ». Le `&&` et le `$HOME` sont ici des
+// arguments litteraux de `sh`, pas des operateurs.
+{
+  "name": "Tableau qui croit avoir un shell",
+  "image": "mcr.microsoft.com/devcontainers/java:21",
+  "onCreateCommand": ["sh", "-c", "mvn -B compile && echo $HOME"],
+  "postCreateCommand": ["mvn", "-B", "flyway:migrate", "&&", "echo", "fini"]
+}

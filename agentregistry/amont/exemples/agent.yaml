@@ -1,0 +1,16 @@
+apiVersion: ar.dev/v1alpha1
+kind: Agent
+metadata:
+  name: summarizer
+spec:
+  source:
+    image: ghcr.io/acme/summarizer:v1.0.0
+    # repository:                 # optional: link to source code
+    #   url: https://github.com/acme/summarizer
+  description: "An agent that summarizes documents"
+  # References to other registry resources -- resolved at deploy time:
+  # mcpServers:
+  #   - kind: MCPServer
+  #     name: acme-fetch        # published via: arctl apply -f mcp.yaml
+  #     tag: stable
+  # See full-stack.yaml for a complete example with all dependencies.

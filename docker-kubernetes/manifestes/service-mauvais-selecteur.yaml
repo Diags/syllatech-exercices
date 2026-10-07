@@ -1,0 +1,19 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Ce Service est syntaxiquement parfait. `kubectl apply` l'accepte,
+# `kubectl get service` l'affiche avec une IP, et il ne repond jamais.
+#
+# La raison tient en une lettre : le selecteur dit `jobporta`, les pods
+# portent `jobportal`. Kubernetes ne verifie PAS qu'un selecteur
+# corresponde a quelque chose — un Service peut legitimement etre cree
+# avant ses pods.
+#
+# Le seul signe est `kubectl get endpoints jobportal-casse` : <none>.
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: jobportal-casse
+spec:
+  selector: { app: jobporta }
+  ports: [{ port: 80, targetPort: 8080 }]

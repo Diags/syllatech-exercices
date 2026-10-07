@@ -1,0 +1,503 @@
+{
+ "approche": "modele-seul",
+ "modele": "qwen2.5:1.5b-instruct-q4_K_M",
+ "date": "2026-10-07",
+ "passages": [
+  {
+   "banc": {
+    "justes": 1,
+    "total": 14,
+    "secondes": 47.9,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-123"
+      ],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations en temps réel sur les offres d'emploi en ligne. Cependant, je peux vous donner un exemple de la structure d'une offre de développeur Java à Lyon :\n\nOFF-123456789\n\nCela signifie que cette offre est numéro 123456789 sur notre portail d'emploi. Si vous recherchez des emplois de développeur Java à Lyon, vous pouvez consulter notre site web pour trouver les offres qui correspondent à vos compétences et expériences."
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je ne peux pas vous aider à trouver un emploi. Cependant, je peux vous donner quelques conseils pour trouver un emploi dans la data en télétravail complet. Vous pouvez essayer de postuler sur des sites de recrutement spécialisés dans la data, tels que Indeed, LinkedIn, ou même sur des plateformes de freelance comme Upwork ou Freelancer. Vous pouvez également envisager de postuler auprès de petites entreprises qui pourraient être intéressées par un travail à distance. N'oubliez pas de vérifier les conditions de télétravail et de télécharger les documents requis pour postuler. Bonne chance !"
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant, je n'ai pas accès à une base de données en temps réel des offres d'emploi en ligne. Pour trouver des emplois CDD à Grenoble, je vous recommande de consulter les sites de recrutement locaux ou de les contacter directement. Vous pouvez également visiter le site du gouvernement ou d'autres plateformes d'emploi pour trouver des opportunités."
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la référence de l'offre de poste pour le poste d'ingénieur IA chez Lumen. Pour obtenir les informations exactes sur le salaire pour ce poste, je vous recommande de consulter directement le site de Lumen ou de contacter directement leur recrutement."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas accès à des informations sur les offres en alternance en cours de recrutement. Pour obtenir cette information, je vous recommande de consulter directement le site du portail d'emploi ou de contacter le recruteur concerné."
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous aider avec ça."
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-001"
+      ],
+      "reponse": "OFF-001"
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-001"
+      ],
+      "reponse": "L'offre qui demande de connaître Kubernetes est OFF-001."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques des offres d'emploi en temps réel. Pour obtenir la réponse exacte à votre question, je vous recommande de consulter directement le portail d'emploi ou de contacter le recruteur concerné pour obtenir cette information."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas la capacité de recueillir, analyser ou comparer les données sur les candidatures reçues pour chaque offre. Cela nécessiterait une analyse des statistiques de recrutement qui sont généralement stockées et analysées par les recruteurs ou les employeurs. Pour obtenir cette information, il faudrait contacter directement les recruteurs ou les employeurs concernés."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques de chaque offre du portail d'emploi. Pour obtenir la réponse à votre question, il faudrait contacter directement le portail d'emploi ou consulter leur site web."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Google propose une variété d'emplois dans divers secteurs, notamment en recherche de marché, en développement de produits, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing,"
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous fournir cette information car elle nécessite une prévision météorologique actuelle, qui est généralement disponible uniquement sur des sites météorologiques ou des applications mobiles. Je vous suggère de consulter un site météorologique pour obtenir les prévisions météorologiques pour demain à Lyon."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": false,
+       "aucune offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "En mer, la nature s'offre à nos yeux,\nUn paysage sans fin, sans frontières.\nLes vagues, des étoiles dans le ciel,\nS'élancent vers le ciel, sans jamais s'arrêter.\n\nLes côtes, des bras tendus au large,\nLes plongeons, des baladeurs en balade.\nLes poissons, des poissons de mer,\nLes oiseaux, des oiseaux de mer.\n\nLa mer, un livre sans fin,\nUn miroir de la vie et de la mort.\nLes étoiles, des étoiles de la mer,\nLes nuages, des nuages de la mer.\n\nLa mer, un symbole de liberté,\nUn symbole de la vie et de la mort.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la beauté,\nUn symbole de la force et de la douleur.\nLes côtes, des côtes de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de la vie.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la nature,\nUn symbole de la vie et de la mort.\nLes côtes, des côtes de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de la vie.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de"
+     }
+    ]
+   },
+   "validation": {
+    "justes": 1,
+    "total": 8,
+    "secondes": 17.2,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations sur les offres de développeur à Bordeaux en temps réel. Pour obtenir les dernières offres de développeur à Bordeaux, je vous recommande de consulter directement les sites web des entreprises locales ou de suivre les actualités du marché de l'emploi en France. Vous pouvez également postuler directement sur les sites de recrutement spécialisés en développement."
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je ne peux pas vous aider à trouver un CDI à Marseille. Cependant, je peux vous proposer des offres d'emploi en ligne qui pourraient correspondre à votre recherche. Pour cela, vous pouvez utiliser le moteur de recherche de l'emploi ou un site spécialisé en fonction de votre profil et de vos préférences."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations spécifiques sur les offres d'emploi en cours ou futures. Pour obtenir des informations sur les stages en data, je vous recommande de consulter directement les sites web des entreprises ou les portails d'emploi qui proposent ces opportunités. Vous pouvez également contacter directement les entreprises concernées pour obtenir plus d'informations sur les stages en data."
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques des offres d'emploi en temps réel. Pour obtenir la réponse à votre question, il faudrait consulter directement le site du portail d'emploi ou contacter le recruteur concerné."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à la fourchette de salaire spécifique pour le poste de comptable. Les salaires peuvent varier en fonction de nombreux facteurs tels que la région, le type de poste, les expériences et les qualifications. Pour obtenir une estimation précise, je vous recommande de consulter directement les offres d'emploi ou de contacter directement les employeurs concernés."
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant virtuel, je n'ai pas accès à des informations sur les offres d'emploi en temps réel. Pour obtenir des informations sur les offres d'emploi chez Amazon, je vous recommande de consulter leur site web officiel ou de les contacter directement."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Désolé, mais je ne peux pas vous aider avec ça."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas la capacité de fournir des informations sur les offres qui attirent le plus de candidats. Les données sur les offres les plus populaires sont généralement disponibles auprès des recruteurs ou des employeurs, qui peuvent partager leurs résultats de recrutement. Pour obtenir cette information, je vous recommande de contacter directement les recruteurs concernés ou de consulter les statistiques publiées par le site d'emploi."
+     }
+    ]
+   }
+  },
+  {
+   "banc": {
+    "justes": 1,
+    "total": 14,
+    "secondes": 50.3,
+    "notes": [
+     {
+      "id": "java-lyon",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-001"
+      ],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à une base de données en temps réel des offres d'emploi en ligne. Cependant, je peux vous donner un exemple de la structure d'une offre de développeur Java à Lyon :\n\nOFF-001\n- Titre : Développeur Java\n- Type : Offre de stage\n- Date de publication : 15/02/2023\n- Lieu : Lyon\n- Durée : 6 mois\n- Niveau : Bac+2\n- Compétences requises : Java, Spring, Hibernate, Git, Angular\n- Compétences souhaitées : Angular, Node.js, Docker, Kubernetes\n- Références : [Veuillez remplacer [ ] par les références de l'offre]\n\nPour obtenir les offres actuelles de développeur Java à Lyon, je vous recommande de consulter le site web de l'entreprise ou de la plateforme d'emploi en question. Vous pouvez également postuler directement sur leur site pour être mis en relation avec les opportunités d'emploi."
+     },
+     {
+      "id": "data-a-distance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je ne peux pas vous aider à trouver un emploi. Cependant, je peux vous donner quelques conseils pour trouver un emploi dans la data en télétravail complet. Vous pouvez essayer de postuler sur des sites de recrutement spécialisés dans la data, tels que Indeed, LinkedIn, ou même sur des plateformes de freelance comme Upwork ou Freelancer. Vous pouvez également envisager de postuler auprès de petites entreprises qui pourraient être intéressées par un travail à distance. N'oubliez pas de vérifier les conditions de télétravail et de télécharger les documents requis pour postuler. Bonne chance !"
+     },
+     {
+      "id": "cdd-grenoble",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la possibilité de consulter les offres en temps réel ou de vérifier les informations spécifiques à chaque offre. Cependant, je peux te donner une idée générale sur les CDD disponibles dans Grenoble. \n\nPour trouver des emplois CDD à Grenoble, tu peux consulter les sites de recrutement spécialisés, les sites web des entreprises locales, ou même les sites de l'emploi général. \n\nIl est également possible de contacter directement les entreprises locales qui pourraient avoir des opportunités de CDD à offrir. \n\nEnfin, tu peux également consulter les bulletins de métro emploi, qui sont des bulletins qui sont mis à jour régulièrement et qui contiennent des informations sur les offres d'emploi dans la région. \n\nN'hésite pas à me poser d'autres questions sur les offres d'emploi si tu as besoin d'aide plus spécifique."
+     },
+     {
+      "id": "salaire-ia",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la possibilité de fournir des informations sur les salaires spécifiques pour un poste d'ingénieur IA chez Lumen. Les salaires peuvent varier en fonction de nombreux facteurs, y compris la région, le pays, le niveau de qualification, les expériences précédentes et les compétences du candidat. Pour obtenir une estimation précise du salaire pour un tel poste, il serait recommandé de consulter directement Lumen ou de contacter directement les candidats ayant postulé pour ce poste."
+     },
+     {
+      "id": "alternance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas accès à des informations sur les offres en alternance en cours de recrutement. Pour obtenir cette information, je vous recommande de consulter directement le site du portail d'emploi ou de contacter le recruteur concerné."
+     },
+     {
+      "id": "designer-freelance",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous aider avec ça."
+     },
+     {
+      "id": "securite-paris",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-001"
+      ],
+      "reponse": "OFF-001"
+     },
+     {
+      "id": "kubernetes",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": false
+      },
+      "juste": false,
+      "citees": [
+       "OFF-001"
+      ],
+      "reponse": "L'offre qui demande de connaître Kubernetes est OFF-001."
+     },
+     {
+      "id": "candidatures-103",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques des offres d'emploi en temps réel. Pour obtenir la réponse exacte à votre question, je vous recommande de consulter directement le portail d'emploi ou de contacter le recruteur concerné pour obtenir cette information."
+     },
+     {
+      "id": "plus-de-candidatures",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas la capacité de fournir des données sur les offres de travail ou les candidatures reçues. Je peux simplement vous informer que vous pouvez consulter les offres en ligne pour les trouver."
+     },
+     {
+      "id": "offre-inconnue",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques de chaque offre du portail d'emploi. Pour obtenir la réponse à votre question, il faudrait contacter directement le portail d'emploi ou consulter leur site web ou leur application mobile."
+     },
+     {
+      "id": "entreprise-absente",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Google propose une variété d'emplois dans divers secteurs, notamment en recherche de marché, en développement de produits, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing, en recherche et développement, en support technique, en marketing,"
+     },
+     {
+      "id": "meteo",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je ne peux pas vous fournir cette information car elle nécessite une prévision météorologique actuelle, qui est généralement disponible uniquement sur des sites météorologiques ou des applications météorologiques. Je vous suggère de consulter un site météorologique pour obtenir la prévision du temps à Lyon demain."
+     },
+     {
+      "id": "poeme",
+      "controles": {
+       "refus signalé": false,
+       "aucune offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "En mer, la nature s'offre à nos yeux,\nUn paysage sans fin, sans frontières.\nLes vagues, des étoiles dans le ciel,\nS'élancent vers le ciel, sans jamais s'arrêter.\n\nLes côtes, des bras tendus au large,\nLes plongeons, des baladeurs en balade.\nLes poissons, des poissons de mer,\nLes oiseaux, des oiseaux de mer.\n\nLa mer, un livre sans fin,\nUn miroir de la vie et de la mort.\nLes étoiles, des étoiles de la mer,\nLes nuages, des nuages de la mer.\n\nLa mer, un symbole de liberté,\nUn symbole de la vie et de la mort.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la beauté,\nUn symbole de la force et de la douleur.\nLes côtes, des côtes de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de la vie.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la nature,\nUn symbole de la vie et de la mort.\nLes côtes, des côtes de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de la vie.\nLes vagues, des vagues de la mer,\nLes plongeons, des plongeons de la mer.\n\nLa mer, un symbole de la vie,\nUn symbole de la mort et de"
+     }
+    ]
+   },
+   "validation": {
+    "justes": 1,
+    "total": 8,
+    "secondes": 16.5,
+    "notes": [
+     {
+      "id": "v-dev-bordeaux",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations sur les offres de développeur à Bordeaux en temps réel. Pour obtenir les dernières offres de développeur à Bordeaux, je vous recommande de consulter directement les sites web des entreprises locales ou de suivre les actualités du marché de l'emploi en France. Vous pouvez également postuler directement sur les sites de recrutement spécialisés en développement."
+     },
+     {
+      "id": "v-cdi-marseille",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je ne peux pas vous aider à trouver un CDI à Marseille. Cependant, je peux vous proposer des offres d'emploi en ligne qui pourraient correspondre à votre recherche. Pour cela, vous pouvez utiliser le moteur de recherche de l'emploi ou un site spécialisé en fonction de votre profil et de vos préférences."
+     },
+     {
+      "id": "v-stage-data",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à des informations spécifiques sur les offres d'emploi en cours ou futures. Pour obtenir des informations sur les stages en data, je vous recommande de consulter directement les sites web des entreprises ou les portails d'emploi qui proposent ces opportunités. Vous pouvez également contacter directement les entreprises concernées pour obtenir plus d'informations sur les stages en data."
+     },
+     {
+      "id": "v-postulants-120",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas la capacité de consulter les données spécifiques des offres d'emploi en temps réel. Pour obtenir la réponse à votre question, il faudrait consulter directement le site du portail d'emploi ou contacter le recruteur concerné."
+     },
+     {
+      "id": "v-salaire-comptable",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais je n'ai pas accès à la fourchette de salaire spécifique pour le poste de comptable. Les salaires peuvent varier en fonction de nombreux facteurs tels que la région, le type de poste, les expériences et les qualifications. Pour obtenir une estimation précise, je vous recommande de consulter directement les offres d'emploi ou de contacter directement les employeurs concernés."
+     },
+     {
+      "id": "v-amazon",
+      "controles": {
+       "absence signalée": false,
+       "aucune offre inventée": true
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant virtuel, je n'ai pas accès à des informations sur les offres d'emploi en temps réel. Pour obtenir des informations sur les offres d'emploi chez Amazon, je vous recommande de consulter leur site web officiel ou de les contacter directement."
+     },
+     {
+      "id": "v-crepes",
+      "controles": {
+       "refus signalé": true,
+       "aucune offre citée": true
+      },
+      "juste": true,
+      "citees": [],
+      "reponse": "Désolé, mais je ne peux pas vous aider avec ça."
+     },
+     {
+      "id": "v-plus-demandee",
+      "controles": {
+       "toutes les offres attendues citées": false,
+       "aucune autre offre citée": true,
+       "les chiffres attendus présents": false
+      },
+      "juste": false,
+      "citees": [],
+      "reponse": "Je suis désolé, mais en tant qu'assistant du portail d'emploi, je n'ai pas la capacité de fournir des informations sur les offres qui attirent le plus de candidats. Les données sur les offres les plus populaires sont généralement disponibles auprès des recruteurs ou des employeurs, qui peuvent partager leurs résultats de recrutement. Pour obtenir cette information, je vous recommande de contacter directement les recruteurs concernés ou de consulter les statistiques publiées par le site d'emploi."
+     }
+    ]
+   }
+  }
+ ]
+}

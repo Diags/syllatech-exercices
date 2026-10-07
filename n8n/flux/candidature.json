@@ -1,0 +1,125 @@
+{
+  "name": "Candidature recue",
+  "nodes": [
+    {
+      "id": "a1",
+      "name": "Webhook candidature",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [0, 300],
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "candidature"
+      }
+    },
+    {
+      "id": "a2",
+      "name": "Normaliser",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [220, 300],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "name": "nom", "value": "={{ $json.nom.trim() }}", "type": "string" },
+            { "name": "poste", "value": "={{ $json.poste.toUpperCase() }}", "type": "string" },
+            { "name": "recu_le", "value": "={{ $now.toISO() }}", "type": "string" },
+            { "name": "annees", "value": "={{ $json.experience ?? 0 }}", "type": "number" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "a3",
+      "name": "Assez d'experience ?",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [440, 300],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.annees }}",
+              "rightValue": 3,
+              "operator": { "type": "number", "operation": "gte" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "a4",
+      "name": "Enregistrer",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [680, 200],
+      "parameters": { "operation": "insert", "table": "candidatures" },
+      "credentials": { "postgres": { "id": "1", "name": "Base du job portal" } },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "a5",
+      "name": "Accuser reception",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [900, 200],
+      "parameters": {
+        "toEmail": "={{ $('Normaliser').item.json.email }}",
+        "subject": "={{ 'Votre candidature au poste ' + $('Normaliser').item.json.poste }}"
+      },
+      "credentials": { "smtp": { "id": "2", "name": "SMTP sortant" } },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "a6",
+      "name": "Refus poli",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [680, 420],
+      "parameters": {
+        "toEmail": "={{ $('Normaliser').item.json.email }}",
+        "subject": "Suite a votre candidature"
+      },
+      "credentials": { "smtp": { "id": "2", "name": "SMTP sortant" } },
+      "onError": "continueErrorOutput"
+    },
+    {
+      "id": "a7",
+      "name": "Journaliser l'echec",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 1,
+      "position": [1120, 320],
+      "parameters": {
+        "jsCode": "for (const item of $input.all()) {\n  console.error('echec', item.json.error);\n}\nreturn $input.all();"
+      }
+    }
+  ],
+  "connections": {
+    "Webhook candidature": {
+      "main": [[{ "node": "Normaliser", "type": "main", "index": 0 }]]
+    },
+    "Normaliser": {
+      "main": [[{ "node": "Assez d'experience ?", "type": "main", "index": 0 }]]
+    },
+    "Assez d'experience ?": {
+      "main": [
+        [{ "node": "Enregistrer", "type": "main", "index": 0 }],
+        [{ "node": "Refus poli", "type": "main", "index": 0 }]
+      ]
+    },
+    "Enregistrer": {
+      "main": [[{ "node": "Accuser reception", "type": "main", "index": 0 }]],
+      "error": [[{ "node": "Journaliser l'echec", "type": "main", "index": 0 }]]
+    },
+    "Accuser reception": {
+      "main": [[]],
+      "error": [[{ "node": "Journaliser l'echec", "type": "main", "index": 0 }]]
+    },
+    "Refus poli": {
+      "main": [[]],
+      "error": [[{ "node": "Journaliser l'echec", "type": "main", "index": 0 }]]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" }
+}

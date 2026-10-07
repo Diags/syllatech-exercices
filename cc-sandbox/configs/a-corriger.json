@@ -1,0 +1,38 @@
+{
+  "$comment": "Chaque cle de ce fichier est acceptee sans erreur, et huit d'entre elles n'ont pas l'effet qu'on croit. Voir le chapitre 6, et outils/verifier.py.",
+  "sandbox": {
+    "enabled": true,
+    "filesystem": {
+      "allowWrite": [
+        ".claude/settings.json",
+        "~/.claude",
+        "/tmp"
+      ],
+      "disabled": true
+    },
+    "network": {
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "api.*.com"
+      ],
+      "strictAllowlist": true
+    },
+    "credentials": {
+      "envVars": [
+        {
+          "name": "GITHUB_TOKEN",
+          "mode": "mask",
+          "injectHosts": [
+            "api.github.com"
+          ]
+        }
+      ],
+      "files": [
+        {
+          "path": "~/.config/*/token.json",
+          "mode": "mask"
+        }
+      ]
+    }
+  }
+}

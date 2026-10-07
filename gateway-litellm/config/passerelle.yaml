@@ -1,0 +1,48 @@
+# config.yaml — la passerelle du job portal.
+#
+# C'est un vrai fichier de configuration LiteLLM : `litellm --config
+# config/passerelle.yaml --port 4000` le démarre tel quel. Les deux lignes
+# `mock_response` sont ce qui permet à ce projet de tourner sans clé et sans
+# dépense ; les retirer suffit pour appeler de vrais fournisseurs.
+
+model_list:
+  # `model_name` est l'ALIAS que voient les applications.
+  # `litellm_params.model` est le fournisseur réel. Les deux se découplent :
+  # changer de fournisseur derrière un alias ne demande aucun redéploiement.
+  - model_name: claude
+    litellm_params:
+      model: anthropic/claude-sonnet-4-5
+      api_key: os.environ/ANTHROPIC_API_KEY
+      mock_response: "Trois offres correspondent a ce profil."
+
+  - model_name: rapide
+    litellm_params:
+      model: openai/gpt-4o-mini
+      api_key: os.environ/OPENAI_API_KEY
+      mock_response: "Resume en une ligne."
+
+  - model_name: local
+    litellm_params:
+      # Un modèle auto-hébergé : `api_base` pointe vers l'endpoint interne.
+      # Le même proxy sert donc le cloud et l'on-premise.
+      model: ollama/llama3
+      api_base: http://ollama:11434
+      mock_response: "Reponse du modele local."
+
+litellm_settings:
+  # Si `claude` échoue, LiteLLM tente `rapide`, puis `local`. L'application ne
+  # voit qu'une réponse réussie — d'où l'importance de journaliser la bascule.
+  fallbacks:
+    - claude: ["rapide", "local"]
+  # ⚠️ Chaque tentative supplémentaire est payée en LATENCE avant la bascule.
+  # Le chapitre 4 la mesure : ici, 0 réessai bascule en ~130 ms, 2 réessais en
+  # ~4,7 s. Sur un appel interactif, c'est la différence entre une hésitation
+  # et un abandon.
+  num_retries: 0
+  success_callback: ["prometheus", "langfuse"]
+
+general_settings:
+  # La clé maître est réservée à l'ADMINISTRATION : générer et révoquer les
+  # clés virtuelles. Une application qui l'utilise contourne tous les budgets.
+  master_key: os.environ/LITELLM_MASTER_KEY
+  database_url: os.environ/DATABASE_URL

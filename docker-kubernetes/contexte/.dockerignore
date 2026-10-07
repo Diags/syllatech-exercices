@@ -1,0 +1,11 @@
+# Ce qui n'a rien a faire dans le contexte de construction.
+#
+# ⚠️ Ces motifs agissent sur DEUX choses : la taille de ce qui est
+# transmis au demon, et l'empreinte des `COPY` — donc le cache.
+target
+.git
+*.log
+.env
+# Et l'exception qui montre la regle : le DERNIER motif qui correspond
+# l'emporte, donc celui-ci rattrape le fichier exclu juste au-dessus.
+!.env.exemple

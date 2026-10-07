@@ -1,0 +1,23 @@
+{
+  "_pourquoi": "Une restriction par adresse source. Elle montre deux choses : une condition qui se satisfait, et la meme qui echoue depuis ailleurs.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "AdministrerDepuisLeBureau",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:*",
+        "rds:*"
+      ],
+      "Resource": "*",
+      "Condition": {
+        "IpAddress": {
+          "aws:SourceIp": [
+            "203.0.113.0/24",
+            "198.51.100.42/32"
+          ]
+        }
+      }
+    }
+  ]
+}

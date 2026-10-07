@@ -1,0 +1,11 @@
+apiVersion: ar.dev/v1alpha1
+kind: Skill
+metadata:
+  name: summarize
+spec:
+  title: Summarization
+  description: "Summarizes long text into concise form"
+  source:
+    repository:
+      url: https://github.com/acme/agent-skills
+      subfolder: skills/summarize

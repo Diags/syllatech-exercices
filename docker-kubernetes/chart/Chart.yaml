@@ -1,0 +1,6 @@
+apiVersion: v2
+name: jobportal
+description: Le portail de l'emploi, empaquete
+type: application
+version: 1.4.0
+appVersion: "1.0"

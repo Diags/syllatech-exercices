@@ -1,0 +1,30 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Le meme deploiement, prive de trois choses. Il demarre, ses pods passent
+# `Running`, et `kubectl get pods` affiche 3/3 prets. Tout va bien.
+#
+#   1. aucune sonde : un pod est declare PRET des qu'il tourne, donc le
+#      Service lui envoie du trafic pendant son demarrage — les 502 du
+#      debut de chaque deploiement viennent de la ;
+#   2. aucune `resources` : classe de qualite BestEffort, le premier
+#      evince quand un noeud manque de memoire, et l'ordonnanceur le place
+#      n'importe ou puisqu'il ne demande rien ;
+#   3. aucune `strategy` : les valeurs par defaut s'appliquent, soit
+#      maxSurge 25 % et maxUnavailable 25 %.
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jobportal-sans-sondes
+spec:
+  replicas: 3
+  selector:
+    matchLabels: { app: jobportal-sans-sondes }
+  template:
+    metadata:
+      labels: { app: jobportal-sans-sondes }
+    spec:
+      containers:
+        - name: app
+          image: registry.exemple.fr/jobportal:1.0
+          ports: [{ containerPort: 8080 }]

@@ -1,0 +1,47 @@
+{
+    "id": "ruby",
+    "version": "2.0.0",
+    "name": "Ruby (via ruby-build)",
+    "documentationURL": "https://github.com/devcontainers/features/tree/main/src/ruby",
+    "description": "Installs Ruby using ruby-build, with optional rbenv or rvm for version management.",
+    "options": {
+        "version": {
+            "type": "string",
+            "proposals": [
+                "latest",
+                "none",
+                "4.0",
+                "3.4"
+            ],
+            "default": "latest",
+            "description": "Select or enter a Ruby version to install"
+        },
+        "versionManager": {
+            "type": "string",
+            "enum": ["none", "rbenv", "rvm"],
+            "default": "none",
+            "description": "Version manager to install alongside Ruby: 'rbenv', 'rvm', or 'none' (ruby-build only)"
+        }
+    },
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "shopify.ruby-lsp"
+            ],
+            "settings": {
+                "github.copilot.chat.codeGeneration.instructions": [
+                    {
+                        "text": "This dev container installs Ruby via ruby-build. rbenv or rvm may also be available depending on the versionManager option. The default Ruby is on the PATH via /usr/local/rubies/current/bin (or rbenv shims if rbenv is the version manager)."
+                    }
+                ]
+            }
+        }
+    },
+    "containerEnv": {
+        "RBENV_ROOT": "/usr/local/share/rbenv",
+        "PATH": "/usr/local/share/rbenv/shims:/usr/local/share/rbenv/bin:/usr/local/rubies/current/bin:${PATH}"
+    },
+    "installsAfter": [
+        "ghcr.io/devcontainers/features/common-utils"
+    ]
+}

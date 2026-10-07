@@ -1,0 +1,50 @@
+# yaml-language-server: $schema=https://agentgateway.dev/schema/config
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - backends:
+      - ai:
+          name: openai
+          provider:
+            openAI:
+              model: gpt-4o-mini
+      policies:
+        ai:
+          promptGuard:
+            request:
+            - regex:
+                action: reject
+                rules:
+                - pattern: SSN
+                - pattern: Social Security
+              rejection:
+                status: 400
+                headers:
+                  set:
+                    content-type: "application/json"
+                body: |
+                  {
+                    "error": {
+                      "message": "Request rejected: Content contains sensitive information",
+                      "type": "invalid_request_error",
+                      "code": "content_policy_violation"
+                    }
+                  }
+            - regex:
+                action: reject
+                rules:
+                - builtin: email
+              rejection:
+                status: 400
+                headers:
+                  set:
+                    content-type: "application/json"
+                body: |
+                  {
+                    "error": {
+                      "message": "Response blocked: Contains email",
+                      "type": "invalid_request_error",
+                      "code": "pii_detected"
+                    }
+                  }

@@ -1,0 +1,88 @@
+{
+  "name": "Candidature recue (a corriger)",
+  "nodes": [
+    {
+      "id": "b1",
+      "name": "Webhook candidature",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 1,
+      "position": [0, 300],
+      "parameters": { "httpMethod": "POST", "path": "candidature" }
+    },
+    {
+      "id": "b2",
+      "name": "Normaliser",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [220, 300],
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            { "name": "nom", "value": "{{ $json.nom.trim() }}", "type": "string" },
+            { "name": "poste", "value": "={{ $json.post.toUpperCase() }}", "type": "string" },
+            { "name": "annees", "value": "={{ $('Decision').item.json.annees }}", "type": "number" }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b3",
+      "name": "Decision",
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 1,
+      "position": [440, 300],
+      "parameters": {
+        "conditions": {
+          "conditions": [
+            {
+              "leftValue": "={{ $json.annees }}",
+              "rightValue": 3,
+              "operator": { "type": "number", "operation": "gte" }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "b4",
+      "name": "Enregistrer",
+      "type": "n8n-nodes-base.postgres",
+      "typeVersion": 1,
+      "position": [680, 200],
+      "parameters": { "operation": "insert", "table": "candidatures" }
+    },
+    {
+      "id": "b5",
+      "name": "Refus poli",
+      "type": "n8n-nodes-base.emailSend",
+      "typeVersion": 1,
+      "position": [680, 420],
+      "parameters": { "toEmail": "={{ $json.email }}" },
+      "credentials": { "smtp": { "id": "2", "name": "SMTP sortant" } }
+    },
+    {
+      "id": "b6",
+      "name": "Notes internes",
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 1,
+      "position": [900, 560],
+      "parameters": { "assignments": { "assignments": [] } }
+    }
+  ],
+  "connections": {
+    "Webhook candidature": {
+      "main": [[{ "node": "Normaliser", "type": "main", "index": 0 }]]
+    },
+    "Normaliser": {
+      "main": [[{ "node": "Decision", "type": "main", "index": 0 }]]
+    },
+    "Decision": {
+      "main": [
+        [{ "node": "Refus poli", "type": "main", "index": 0 }],
+        [{ "node": "Enregistrer", "type": "main", "index": 0 }]
+      ]
+    }
+  },
+  "active": false,
+  "settings": { "executionOrder": "v1" }
+}

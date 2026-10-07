@@ -1,0 +1,12 @@
+{
+  "permissions": {
+    "deny": [
+      "mcp__jobportal__supprimer_offre"
+    ],
+    "allow": [
+      "mcp__jobportal__rechercher_offres",
+      "mcp__jobportal__statistiques_candidatures",
+      "mcp__jobportal__offres_sans_candidature"
+    ]
+  }
+}

@@ -1,0 +1,52 @@
+{
+  "$comment": "A poser dans .claude/settings.json du depot. Ne contient QUE des cles honorees en portee projet — un fichier partage ne doit rien contenir qui soit ignore en silence.",
+  "sandbox": {
+    "enabled": true,
+    "failIfUnavailable": true,
+    "allowUnsandboxedCommands": false,
+    "filesystem": {
+      "allowRead": [
+        "."
+      ],
+      "denyRead": [
+        "~/"
+      ],
+      "allowWrite": [
+        "/tmp/build",
+        "~/.cache/npm"
+      ]
+    },
+    "network": {
+      "allowedDomains": [
+        "registry.npmjs.org",
+        "*.github.com",
+        "pypi.org"
+      ],
+      "deniedDomains": [
+        "gist.github.com"
+      ]
+    },
+    "credentials": {
+      "files": [
+        {
+          "path": "~/.aws/credentials",
+          "mode": "deny"
+        },
+        {
+          "path": "~/.ssh",
+          "mode": "deny"
+        }
+      ],
+      "envVars": [
+        {
+          "name": "NPM_TOKEN",
+          "mode": "deny"
+        },
+        {
+          "name": "AWS_SECRET_ACCESS_KEY",
+          "mode": "deny"
+        }
+      ]
+    }
+  }
+}

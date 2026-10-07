@@ -1,0 +1,5 @@
+{
+  "_pourquoi": "Un depot Git ne peut pas transporter un jar de 47 Mo ni un depot Maven de 212 Mo. Ces fichiers existent donc en reduction dans contexte/, et leur POIDS REEL est declare ici. Le chargeur (jobportal/contexte.py) le lit et l'utilise a la place de la taille sur disque. Comme effets.py, c'est une ENTREE du modele, pas une mesure : ce que le projet mesure, ce sont les couches reconstruites, jamais les octets.",
+  "target/jobportal.jar": 47000000,
+  ".git/objects/pack/pack-8f3a9c.pack": 184000000
+}

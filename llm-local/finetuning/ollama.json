@@ -1,0 +1,69 @@
+{
+ "champs_total": 60,
+ "qwen2.5:1.5b-instruct-q4_K_M": {
+  "consigne_du_cours": [
+   54,
+   54
+  ],
+  "consigne_d_entrainement": [
+   56,
+   56
+  ],
+  "disque_mo": 986
+ },
+ "qwen2.5:0.5b-instruct-q4_K_M": {
+  "consigne_du_cours": [
+   42,
+   43
+  ],
+  "consigne_d_entrainement": [
+   41,
+   41
+  ],
+  "disque_mo": 398
+ },
+ "qwen2.5-base:0.5b-f16": {
+  "consigne_du_cours": [
+   40,
+   40
+  ],
+  "consigne_d_entrainement": [
+   46,
+   46
+  ],
+  "disque_mo": 994
+ },
+ "qwen2.5-base:0.5b-q8_0": {
+  "consigne_du_cours": [
+   41,
+   41
+  ],
+  "consigne_d_entrainement": [
+   46,
+   46
+  ],
+  "disque_mo": 531
+ },
+ "qwen2.5-fiches:0.5b-f16": {
+  "consigne_du_cours": [
+   51,
+   51
+  ],
+  "consigne_d_entrainement": [
+   56,
+   56
+  ],
+  "disque_mo": 994
+ },
+ "qwen2.5-fiches:0.5b-q8_0": {
+  "consigne_du_cours": [
+   50,
+   50
+  ],
+  "consigne_d_entrainement": [
+   56,
+   56
+  ],
+  "disque_mo": 531
+ }
+}

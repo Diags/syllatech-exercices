@@ -1,0 +1,23 @@
+{
+  "_pourquoi": "La meme regle, avec BoolIfExists : la condition est satisfaite quand la cle est ABSENTE, donc le Deny s'applique aussi aux demandes qui n'annoncent rien.",
+  "Version": "2012-10-17",
+  "Statement": [
+    {
+      "Sid": "RefuserSansMfa",
+      "Effect": "Deny",
+      "Action": "*",
+      "Resource": "*",
+      "Condition": {
+        "BoolIfExists": {
+          "aws:MultiFactorAuthPresent": "false"
+        }
+      }
+    },
+    {
+      "Sid": "AccorderLeReste",
+      "Effect": "Allow",
+      "Action": "s3:*",
+      "Resource": "arn:aws:s3:::cv-candidats/*"
+    }
+  ]
+}

@@ -1,0 +1,26 @@
+# Le socle : le modele et le serveur d'outils metier.
+#
+# ⚠️ Le SECRET n'est pas ici. `apiKeySecret` nomme un `Secret` Kubernetes ;
+# le jeton ne passe jamais par le YAML qu'on versionne. C'est le decouplage
+# que la CRD `ModelConfig` existe pour permettre.
+
+apiVersion: kagent.dev/v1alpha2
+kind: ModelConfig
+metadata:
+  name: claude-config
+  namespace: kagent
+spec:
+  provider: Anthropic
+  model: claude-sonnet-5
+  apiKeySecret: kagent-anthropic
+  temperature: 0
+---
+apiVersion: kagent.dev/v1alpha2
+kind: RemoteMCPServer
+metadata:
+  name: outils-jobportal
+  namespace: kagent
+spec:
+  description: Outils metier du portail de l'emploi
+  protocol: STREAMABLE_HTTP
+  url: http://mcp-jobportal.default:8080/mcp

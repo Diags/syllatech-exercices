@@ -1,0 +1,14 @@
+{
+ "construction_s": 45.3,
+ "image_compressee_mo": 84,
+ "image_sur_disque": "363MB",
+ "demarrage_jusqu_a_sante_s": 5.85,
+ "premiere_question_s": 9.4,
+ "seconde_question_s": 5.75,
+ "reponses": [
+  "L'offre OFF-103 a reçu 21 candidatures.",
+  "Les offres en alternance sont les suivantes :\n\n1. OFF-110 : Alternant développeur web\n2. OFF-118 : Alternant data analyst\n3. OFF-102 : Ingénieur DevOps\n4. OFF-101 : Développeur Java senior\n5. OFF-124 : Stagiaire développeur Java"
+ ],
+ "memoire_conteneur": "43.25MiB / 15.39GiB",
+ "utilisateur": "assistant"
+}

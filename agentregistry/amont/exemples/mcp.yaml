@@ -1,0 +1,27 @@
+apiVersion: ar.dev/v1alpha1
+kind: MCPServer
+metadata:
+  name: acme-fetch
+spec:
+  title: Fetch Server
+  description: "Fetches and extracts content from URLs"
+  source:
+    package:
+      origin:
+        type: oci
+        # OCI identifier must include an explicit tag or digest.
+        identifier: localhost:5001/acme/fetch:1.0.0
+        oci:
+          # Must match the io.modelcontextprotocol.server.name OCI label
+          # the publisher embedded into the image.
+          serverName: acme-fetch
+      transport:
+        type: stdio                     # stdio | http
+      # launch: is optional — when omitted, the image entrypoint runs.
+      # To override the command/args or declare required env vars, set:
+      # launch:
+      #   command: my-server-binary
+      #   args:
+      #     - {type: positional, value: --config=/etc/server.json}
+      #   env:
+      #     - {name: API_KEY, isRequired: true}

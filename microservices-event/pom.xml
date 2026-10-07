@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Portail de l'emploi — projet du cours « Microservices événementiels ».
+
+  ⚠️ AUCUNE INFRASTRUCTURE. Ni Axon Server, ni Kafka, ni PostgreSQL : les
+  événements vivent dans un `InMemoryEventStorageEngine`, celui d'Axon,
+  et le bus de commandes est le `SimpleCommandBus` du framework. Ce sont
+  les MEMES classes qu'en production — seul le magasin change.
+
+  C'est ce qui permet aux six chapitres de tourner sans conteneur, et
+  surtout d'IMPRIMER le flux d'événements : en event sourcing, la vérité
+  est une liste, et une liste se lit.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+                             http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>fr.portail</groupId>
+  <artifactId>microservices-event-portail</artifactId>
+  <version>1.0.0</version>
+  <packaging>jar</packaging>
+  <name>Portail de l'emploi — microservices événementiels</name>
+
+  <properties>
+    <maven.compiler.release>25</maven.compiler.release>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <axon.version>4.13.3</axon.version>
+    <junit.version>5.14.1</junit.version>
+    <assertj.version>3.27.6</assertj.version>
+  </properties>
+
+  <dependencyManagement>
+    <dependencies>
+      <dependency>
+        <groupId>org.axonframework</groupId>
+        <artifactId>axon-bom</artifactId>
+        <version>${axon.version}</version>
+        <type>pom</type>
+        <scope>import</scope>
+      </dependency>
+    </dependencies>
+  </dependencyManagement>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-configuration</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-modelling</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-eventsourcing</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-messaging</artifactId>
+    </dependency>
+    <!--
+      ⚠️ Quatre kilo-octets, et ils sont indispensables. Axon injecte les
+      ressources d'une saga dans les champs annotes `@Inject` — il accepte
+      `jakarta.inject.Inject`, `javax.inject.Inject` ou l'`@Autowired` de
+      Spring. Sans l'une de ces annotations sur le classpath, la passerelle
+      de commandes reste NULLE et la saga echoue au premier evenement, avec
+      un NullPointerException dans un fil d'execution separe. Avec le
+      starter Spring Boot, `@Autowired` est deja la et le probleme
+      n'apparait jamais — c'est le prix du cablage a la main.
+    -->
+    <dependency>
+      <groupId>jakarta.inject</groupId>
+      <artifactId>jakarta.inject-api</artifactId>
+      <version>2.0.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.slf4j</groupId>
+      <artifactId>slf4j-simple</artifactId>
+      <version>2.0.17</version>
+    </dependency>
+
+    <!--
+      ⚠️ `axon-test` n'est PAS en portee `test` ici, et c'est deliberе : le
+      chapitre 6 fait tourner les fixtures given/when/then devant
+      l'apprenant, dans un `main`. Dans un vrai projet, il reste en portee
+      `test`.
+
+      Hamcrest l'accompagne parce que la signature d'`expectEvents(...)`
+      mentionne un `Matcher` : sans lui, la compilation echoue sur
+      « cannot access org.hamcrest.Matcher », a un endroit qui n'a rien a
+      voir avec Hamcrest.
+    -->
+    <dependency>
+      <groupId>org.axonframework</groupId>
+      <artifactId>axon-test</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest</artifactId>
+      <version>3.0</version>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>${junit.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.assertj</groupId>
+      <artifactId>assertj-core</artifactId>
+      <version>${assertj.version}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.15.0</version>
+        <configuration>
+          <compilerArgs>
+            <arg>-parameters</arg>
+          </compilerArgs>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.6</version>
+        <configuration>
+          <argLine>-Dfile.encoding=UTF-8 -Dstdout.encoding=UTF-8 -Dstderr.encoding=UTF-8</argLine>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>3.5.0</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

@@ -1,0 +1,18 @@
+# Chapitre 5 du support — « trois politiques empilees ».
+binds:
+- port: 3000
+  listeners:
+  - routes:
+    - policies:
+        jwtAuth:
+          issuer: https://auth.exemple.fr
+          audiences: [agents]
+        authorization:
+          rules:
+          - 'jwt.team == "data" && mcp.tool.name.startsWith("postgres_")'
+        promptGuard:
+          request:
+            regex:
+              action: reject
+              rules:
+              - builtin: credit_card

@@ -1,0 +1,15 @@
+{
+ "requetes": 22,
+ "duree_ms_mediane": 3940.0,
+ "duree_ms_p95": 7455,
+ "duree_ms_max": 8112,
+ "jetons_entree_moyens": 565,
+ "jetons_sortie_moyens": 33,
+ "outils": {
+  "rechercher_offres": 18,
+  "compter_candidatures": 3,
+  "classement_candidatures": 1
+ },
+ "construction_index_s": 5.1,
+ "requetes_journalisees": 22
+}

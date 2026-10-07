@@ -1,0 +1,19 @@
+# Un skill : un SKILL.md, du code et des documents, pris dans un depot git.
+#
+# Le registre ne copie rien : il garde l'adresse. Le controleur epingle
+# ensuite le commit dans status.resolvedSource — « deploys materialize from
+# this pin, not from the (possibly moving) ref the user gave ».
+apiVersion: ar.dev/v1alpha1
+kind: Skill
+metadata:
+  name: tri-candidatures
+  tag: stable
+spec:
+  title: Tri des candidatures
+  description: "Comment classer un lot de candidatures sur criteres explicites"
+  source:
+    repository:
+      url: https://github.com/portail-emploi/competences
+      subfolder: skills/tri-candidatures
+      # Sans branch ni commit, le consommateur prend la branche par defaut :
+      # « not a hardcoded branch name ».

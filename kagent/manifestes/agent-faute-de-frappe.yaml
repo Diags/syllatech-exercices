@@ -1,0 +1,30 @@
+# ⚠️ PIECE A CONVICTION — NE PAS REPARER.
+#
+# Deux fautes de frappe, et aucune ne fait echouer `kubectl apply` :
+#
+#   systemMesssage  (trois s)   → ELAGUE en silence, prompt vide
+#   maxIteration    (sans s)    → ELAGUE en silence, valeur par defaut
+#
+# L'agent est cree, il est Ready, et il ne fait pas ce qu'on croit. La seule
+# facon de le voir est de relire l'objet STOCKE (`kubectl get -o yaml`),
+# jamais le fichier qu'on a envoye.
+
+apiVersion: kagent.dev/v1alpha2
+kind: Agent
+metadata:
+  name: assistant-faute-de-frappe
+  namespace: kagent
+spec:
+  type: Declarative
+  declarative:
+    systemMesssage: |
+      Tu diagnostiques les incidents du cluster.
+      Verifie TOUJOURS les faits avec tes outils.
+    modelConfig: claude-config
+    maxIteration: 3
+    tools:
+      - type: McpServer
+        mcpServer:
+          name: kagent-tool-server
+          kind: RemoteMCPServer
+          toolNames: [k8s_get_resources, k8s_get_pod_logs]

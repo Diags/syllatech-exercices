@@ -1,0 +1,24 @@
+# Le MEME deploiement, ecrit comme on le trouve trop souvent.
+#
+# Il fonctionne. Il demarre. Et il n'a ni sondes, ni limites, ni
+# strategie explicite — trois absences qui ne se voient qu'en
+# production. Le chapitre 5 les compte.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offres-service
+spec:
+  replicas: 4
+  selector:
+    matchLabels:
+      app: offres-service
+  template:
+    metadata:
+      labels:
+        app: offres-service
+    spec:
+      containers:
+        - name: offres-service
+          image: registre.interne/portail/offres-service:latest
+          ports:
+            - containerPort: 8080
